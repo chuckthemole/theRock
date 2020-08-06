@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Traveler</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'travel/bulma-0.8.0/css/bulma.css' %}"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'travel/main.css' %}"/>
+</head>
+
+<body style="background-color:#9AE1EF">
+<nav class="navbar is-transparent" role="navigation" aria-label="main navigation" style="background-color:#9AE1EF">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{% url 'travel:index' %}">
+            <img src="{% static 'travel/images/world_plane.PNG' %}" alt=" icon" width="40" height="60">
+            Traveler
+        </a>
+        </a class="navbar-item">
+
+      <!--   https://bulma.io/documentation/components/navbar/  for responsive sites-->
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarData">
+       <span aria-hidden="true"></span>
+       <span aria-hidden="true"></span>
+       <span aria-hidden="true"></span>
+     </a>
+
+    </div>
+
+    <div id="navbarData" class="navbar-menu is-active" >
+      <!-- navbar-menu hidden in mobile devices -->
+      <!-- is-actice makes id show in mobile devices -->
+   <div class="navbar-start">
+
+     <a class="navbar-item" href="{% url 'travel:dashboard' %}">My Dashboard</a>
+
+    <div class="navbar-item has-dropdown is-hoverable">
+       <a class="navbar-link">
+         More
+       </a>
+
+       <div class="navbar-dropdown">
+          <a class="navbar-item" href="{% url 'travel:index' %}">More items later</a>
+          <a class="navbar-item"> More items later </a>
+
+       </div>
+
+     </div>
+
+   </div>
+
+   <div class="navbar-end">
+         <div class="navbar-item">
+           <div class="buttons">
+
+             {% if request.path == "/login" or request.path == "/loguser" %}
+             <a class="button is-primary" href="{% url 'travel:signup' %}">Signup</a>
+
+              {% elif request.path == "/signup"  %}
+
+              <a class="button is-primary" href="{% url 'travel:login' %}">Login</a>
+
+             {% else   %}
+             <a class="button is-primary" href="{% url 'travel:logout' %}">Logout</a>
+
+             {% endif %}
+
+           </div>
+         </div>
+       </div>
+     </div>
+   </nav>
+
+<section class="section" style="background-color:#9AE1EF">
+    <div class="container">
+        {% block content %}{% endblock content %}
+    </div>
+</section>
+
+</body>
+</html>

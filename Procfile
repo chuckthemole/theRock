@@ -1,0 +1,1 @@
+web: gunicorn traveler_software_engineering.wsgi

@@ -1,0 +1,52 @@
+<!-- index renders a list of all the traveling locations in the DB -->
+<!-- should implement a search button at some point -->
+{% extends "travel/base.html" %}
+
+{% block content %}
+    <div class="publish-form columns">
+      <div class="column is-one-fifth">
+        <div class="column" >
+            <h4 class="title is-5">Create your new location:</h4>
+             {% if error %}
+                    <h3 style="color: red">{{ error }}</h3>
+                {% endif %}
+            <form action="{% url 'travel:create_location' %}" method="post">
+            {% csrf_token %}
+                <div class="field">
+                  <div class="control">
+                    <label class="label">*Country</label>
+                    <input class="input is-primary" placeholder="Country" type="text" name="country">
+                  </div>
+                </div>
+
+                <div class="field">
+                      <div class="control">
+                        <label class="label">*City</label>
+                        <input class="input is-primary" placeholder="City" name="city">
+                        </input>
+                      </div>
+                </div>
+
+                <label class="checkbox">
+                  <br>Is this where you live?
+                      <input type="checkbox"  id="my_location" name="my_location" />
+                </label>
+
+                <label class="checkbox">
+                  <br>Or are you visiting?
+                      <input type="checkbox"  id="visiting" name="visiting" />
+                </label>
+
+                <br><br><br>
+
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-success is-outlined is-fullwidth" type="submit" value="Publish">Publish</button>&nbsp;
+                  </div>
+                </div>
+
+            </form>
+            </div>
+         </div>
+    </div>
+{% endblock content %}

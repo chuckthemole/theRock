@@ -1,0 +1,58 @@
+<!-- index renders a list of all the traveling locations in the DB -->
+<!-- should implement a search button at some point -->
+{% extends "travel/base.html" %}
+
+{% block content %}
+    <div class="publish-form columns">
+      <div class="column is-one-fifth">
+        <div class="column" >
+            <h4 class="title is-5">Create your new destination:</h4>
+             {% if error %}
+                    <h3 style="color: red">{{ error }}</h3>
+                {% endif %}
+            <form action="{% url 'travel:create_destination' location.id %}" method="post">
+            {% csrf_token %}
+
+                <div class="field">
+                  <div class="control">
+                    <label class="label">*Title</label>
+                    <input class="input is-primary" placeholder="Title" type="TextField" name="title">
+                  </div>
+                </div>
+
+                <div class="field">
+                      <div class="control">
+                        <label class="label">*Description</label>
+                        <input class="input is-primary" placeholder="Description" type="TextField" name="description">
+                        </input>
+                      </div>
+                </div>
+
+                <div class="field">
+                  <div class="control">
+                    <label class="label">*Address</label>
+                    <input class="input is-primary" placeholder="Address" type="TextField" name="address">
+                  </div>
+                </div>
+
+                <div class="field">
+                      <div class="control">
+                        <label class="label">*Zip code</label>
+                        <input class="input is-primary" placeholder="Zip Code" type="TextField" name="zip_code">
+                        </input>
+                      </div>
+                </div>
+
+                <br><br><br>
+
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-success is-outlined is-fullwidth" type="submit" value="Publish">Publish</button>&nbsp;
+                  </div>
+                </div>
+
+            </form>
+            </div>
+         </div>
+    </div>
+{% endblock content %}

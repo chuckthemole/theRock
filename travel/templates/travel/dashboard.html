@@ -1,0 +1,26 @@
+{% extends "travel/base.html" %}
+
+{% block content %}
+
+{% if error %}
+          <h3 class="title is-3" style="color: red"><center>{{ error }}</center></h3>
+{% endif %}
+
+
+<div class="has-text-centered tile is-ancestor">
+          <div style="margin: auto" class="tile is-8 is-parent">
+              <div class="tile is-child box">
+                  <h1 class="title is-2"> Hello <span style="color:#1496ed">{{ user.username }}</span> </h1>
+                  <h4 class="title is-5">You can publish new locations here:</h4>
+                  <a class="button is-info is-medium" href="{% url 'travel:publish_location' %}">Make a new location</a>
+
+           {% for t in my_locations %}
+                         <div class="box">
+                             <div class="content" align="left">
+                                 <a class="button is-success is-medium" href="{% url 'travel:show_location' t.id %}">
+                                   {{ t.city }}, {{ t.country }}</a>
+                             </div>
+                         </div>
+           {% endfor %}
+
+{% endblock content %}

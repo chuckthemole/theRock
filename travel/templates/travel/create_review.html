@@ -1,0 +1,51 @@
+<!-- create_review.html -->
+<!-- -->
+{% extends "travel/base.html" %}
+
+{% block content %}
+    <div class="publish-form columns">
+      <div class="column is-one-fifth">
+        <div class="column" >
+            <h4 class="title is-5">Create your new review of <span style="color:#1496ed">{{ destination.title }}</span>: </h4>
+             {% if error %}
+                    <h3 style="color: red">{{ error }}</h3>
+                {% endif %}
+            <form action="{% url 'travel:create_review' destination.id %}" method="post">
+            {% csrf_token %}
+
+                <div class="field">
+                  <div class="control">
+                    <label class="label">*Title</label>
+                    <input class="input is-primary" placeholder="Title" type="TextField" name="title">
+                  </div>
+                </div>
+
+                <div class="field">
+                      <div class="control">
+                        <label class="label">*Feedback</label>
+                        <input class="input is-primary" placeholder="I felt that..." type="TextField" name="feedback">
+                        </input>
+                      </div>
+                </div>
+
+                <div class="field">
+                      <div class="control">
+                        <label class="label">*Stars (Enter a number from 1-5) </label>
+                        <input class="input is-primary" placeholder="Stars" type="number" name="stars">
+                        </input>
+                      </div>
+                </div>
+
+                <br><br><br>
+
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-success is-outlined is-fullwidth" type="submit" value="Publish">Publish</button>&nbsp;
+                  </div>
+                </div>
+
+            </form>
+            </div>
+         </div>
+    </div>
+{% endblock content %}
