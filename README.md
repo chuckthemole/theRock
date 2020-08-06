@@ -1,10 +1,5 @@
 # theRock
-
-Group Members:
- 1) Charles Thomas
- 2) Omoremi Adeleke
- 3) Tania Ortiz-Rosales
- 4) Redeat Kibebew
+Written by Charles Thomas
 
 Feature: Index Page
 As an authenticated user of the web site rocker
@@ -36,7 +31,6 @@ As an authenticated user of the website rocker
 So that I can read all the possible destinations of one location
 I want to list all the attributes of a particular location
 Route: location/<int:location_id>/show or show_location → views.show_location function → show_location.html
->>>>>>> d4bd3fcecec0a6508aa367da3c5cbb0d06f92ec9
 
 Feature: Create a location
 As an authenticated user of the web site rocker
@@ -67,5 +61,3 @@ I want to be able to create a comment for a review to be displayed
 So that I can let other users know how I feel about a their review
 Route: comment/publish → views.publish_comment, create_comment.html
 Route: comment/create → views.create_comment, show_review.html
-
-# source djangoenv/Scripts/activate

@@ -1,0 +1,43 @@
+/*
+  CSS written by Charles Thomas
+*/
+
+login {
+  margin-left: 100px;
+}
+
+.myButtons {
+  background-color: #f44336;
+  color: white;
+  padding: 15px 37px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+}
+
+.myButtons:link, .myButtons:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 15px 37px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+}
+
+.myButtons:hover, .myButtons:active {
+  background-color: blue;
+}
+
+.main-background {
+  background-color:#9AE1EF;
+}
+
+.front-background {
+  background-color:#9AD1EF;
+}
+
+.alt-front-background {
+  background-color:#52b8e1;
+}
