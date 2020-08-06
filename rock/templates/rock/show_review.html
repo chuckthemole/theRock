@@ -1,0 +1,64 @@
+<!-- show a problem belonging to any user  -->
+{% extends "rock/base.html" %}
+{% block content %}
+
+<!--
+<hr> ##### testing ####  <br>
+review: {{review}} <br>
+comments: {{comments}} <br>
+######################## <br>
+-->
+
+    <div class="columns">
+        <div class="column">
+
+          {% if error %}
+            <h3 class="title is-3" style="color: red">{{ error }}</h3>
+          {% endif %}
+
+            <h2 class="title is-2">Review created by:
+              <span style="color:blue">{{ review.rocker.user.username }}</span>
+            </h2>
+            <div class="box">
+              <div class="content">
+
+                  <b>Title:</b> <font color="red">{{ review.title }}</font> <br><br>
+                  <b>Stars</b> <font color="red">{{ review.stars }}</font> <br><br>
+                  <b>Review:</b> <font color="red">{{ review.feedback }}</font> <br><br>
+
+
+                  {% if comments %}
+                    <br><b>Comments:</b><br>
+                    <div class="box">
+
+                      {% for r in comments %}
+                        <div class="content">
+                            <br>Comment: <font color="red">{{ r.body }}, written by  {{r.rocker.user.username}}</font>
+                        </div>
+                      {% endfor %}
+
+                    </div>
+                    {% else %}
+
+                    There are no comments written for this review.
+
+                  {% endif %}
+                  <br><br>
+                  <!-- Module 6 -->
+                  {% if user.id == review.rocker.user.id %}
+                    <a class="button is-primary is-medium"
+                       href="{% url 'rock:edit_review' review.id %}">Make changes ... </a>
+                  {% endif %}
+
+                  <br><br>
+                  <!-- Module 9 -->
+                  <a class="button is-primary is-medium"
+                      href="{% url 'rock:publish_comment' review.id %}">Create a comment for this review ... </a>
+
+              </div>
+          </div>
+
+        </div>
+    </div>
+
+{% endblock content %}

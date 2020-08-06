@@ -1,0 +1,73 @@
+<!-- show a problem belonging to any user  -->
+{% extends "rock/base.html" %}
+{% block content %}
+
+<!--
+<hr> ##### testing ####  <br>
+destination: {{destination}} <br>
+reviews: {{reviews}} <br>
+######################## <br>
+-->
+
+    <div class="columns">
+        <div class="column">
+
+          {% if error %}
+            <h3 class="title is-3" style="color: red">{{ error }}</h3>
+          {% endif %}
+
+            <h2 class="title is-2">Destination created by:
+              <span style="color:blue">{{ destination.rocker.user.username }}</span>
+            </h2>
+            <div class="box">
+              <div class="content">
+
+                  <b>Title:</b> <font color="red">{{ destination.title }}</font> <br><br>
+                  <b>Located in</b> <font color="red">{{ destination.location }}</font> <br><br>
+                  <b>Address:</b> <font color="red">{{ destination.address }}</font> <br><br>
+                  <b>Created by</b> <font color="red">{{ destination.rocker.user.username }}</font> <b>on</b>
+                    <font color="red">{{ destination.created }}</font> <br><br>
+                  <b>Description:</b> <font color="red">{{ destination.description }}</font> <br><br>
+
+
+                  {% if reviews %}
+                    <br><b>Reviews:</b><br>
+                    <div class="box">
+
+                      {% for r in reviews %}
+                        <div class="content">
+                            <br><font color="red"><u>{{ r.title }}</u>, written by  {{r.rocker.user.username}}</font>
+                            <a class="button is-primary is-small"
+
+
+                            href="{% url 'rock:show_review' r.id %}">Show the review ...</a>
+
+
+                        </div>
+                      {% endfor %}
+
+                    </div>
+                    {% else %}
+
+                    There are no reviews written for this destination.
+
+                  {% endif %}
+                  <br><br>
+                  <!-- Module 6 -->
+                  {% if user.id == destination.rocker.user.id and not reviews %}
+                    <a class="button is-primary is-medium"
+                       href="{% url 'rock:edit_destination' destination.id %}">Make changes ... </a>
+                  {% endif %}
+
+                  <br><br>
+
+                  <a class="button is-primary is-medium"
+                      href="{% url 'rock:publish_review' destination.id %}">Create a review for this destination ... </a>
+
+              </div>
+          </div>
+
+        </div>
+    </div>
+
+{% endblock content %}

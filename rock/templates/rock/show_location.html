@@ -1,0 +1,45 @@
+<!-- show a problem belonging to any user  -->
+{% extends "rock/base.html" %}
+{% block content %}
+
+<!--
+<hr> ##### testing ####  <br>
+problem: {{problem}} <br>
+scripts: {{scripts}} <br>
+######################## <br>
+-->
+    <div class="columns">
+        <div class="column">
+            <h2 class="title is-2">Location added by: <span style="color:blue">{{ location.rocker.user.username }}</span></h2>
+                    <div class="box">
+                    <div class="content">
+                      <b>These are recommended places to visit for this location! </b><br><br>
+                      <b>Country:</b> <font color="red">{{ location.country }}</font> <br><br>
+                      <b>City:</b> <font color="red">{{ location.city }}</font> <br> <br>
+                      <b>Recommended by:</b> <font color="red">{{ location.rocker }}</font>
+
+
+                    <div class="box">
+
+                          {% for d in destinations %}
+                                  <div class="content">
+                                      <br>Destination Name: {{ d.title }}
+                                      <a class="button is-primary is-med" href="{% url 'rock:show_destination' d.id %}">Show the destination ...</a>
+
+                                  </div>
+                          {% endfor %}
+                    </div>
+
+                    </div>
+                </div>
+
+                <a class="button is-primary is-medium" href="{% url 'rock:publish_destination' location.id %}">Make a destination</a>
+                
+                {% if user.id == location.rocker.user.id %}
+                 <a class="button is-primary is-medium" href="{% url 'rock:edit_location' location.id %}">Make changes ... </a>
+                    {% endif %}
+
+        </div>
+    </div>
+
+{% endblock content %}
