@@ -1,0 +1,41 @@
+<!-- index renders a list of all the rock locations in the DB -->
+<!-- should implement a search button at some point -->
+{% extends "rock/base.html" %}
+
+{% block content %}
+
+<head>
+  {% load static %}
+  <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+</head>
+
+<div class="has-text-centered tile is-ancestor">
+  <div style="margin: auto" class="tile is-8 is-parent">
+    <div class="tile is-child box front-background">
+      <h2 class="title is-2">
+        <span style="color:blue">
+          {{ user.username }}
+        </span>
+        <br>This is the location of the {{sport.sport}}
+      </h2>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <p></p>
+
+    <div class='map' id='map' style='width: 100%; height: 300px;'></div>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY2h1Y2t0aGVtb2xlIiwiYSI6ImNrZGt1cWc4NTA0MXYyc2tiaDF0Z3I4aXYifQ.CcukNwNDYUffFZtAqk3Wsg';
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11'
+    });
+    </script>
+
+
+</div>
+
+{% endblock content %}

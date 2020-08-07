@@ -48,4 +48,7 @@ urlpatterns = [
     # Sports
     path('sport/publish', views.publish_choose_sport, name='publish_choose_sport'),
     path('sport/create', views.create_sport, name='create_sport'),
+
+    # Map
+    path('comment/<int:sport_id/show', views.show_map, name='show_map'),
 ]

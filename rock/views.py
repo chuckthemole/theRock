@@ -259,7 +259,7 @@ def create_location(request, sport_id):
         address = request.POST["address"]
         zip = request.POST["zip"]
 
-        if not country and not city:
+        if not address and not zip:
             return render(request, "rock/create_location.html", {"error":"Please fill in all required fields"})
 
         try:
@@ -267,7 +267,13 @@ def create_location(request, sport_id):
             location.save()
             location = get_object_or_404(Location, pk=location.id)
             destination = Destination.objects.filter(location=location.id)
-            return render(request, "rock/show_location.html",{"user":user, "address":address, "zip": zip, "sport":sport})
+
+
+            # TODO: move this token to Django settings from an environment variable
+            # found in the Mapbox account settings and getting started instructions
+            # see https://www.mapbox.com/account/ under the "Access tokens" section
+            mapbox_access_token = 'pk.eyJ1IjoiY2h1Y2t0aGVtb2xlIiwiYSI6ImNrZGt1cWc4NTA0MXYyc2tiaDF0Z3I4aXYifQ.CcukNwNDYUffFZtAqk3Wsg';
+            return render(request, "rock/show_map.html", {"mapbox_access_token": mapbox_access_token, "user":user, "address":address, "zip": zip, "sport":sport})
 
         except:
             return render(request, "rock/create_location.html", {"error":"Can't create the location"})
@@ -276,6 +282,18 @@ def create_location(request, sport_id):
         user = request.user
         all_locations = Location.objects.all()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
+
+def show_map(request, location_id):
+    if request.method == "GET":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+        else:
+            review = get_object_or_404(Review, pk=review_id)
+            comments = Comment.objects.filter(review=review_id)
+            return render(request, "rock/show_comment.html", {"user":user, "review":review, "comments":comments})
+
+
 
 def show_location(request, location_id):
     if request.method == "GET":

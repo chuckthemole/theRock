@@ -41,3 +41,7 @@ login {
 .alt-front-background {
   background-color:#52b8e1;
 }
+
+.map {
+  position: bottom;
+}
