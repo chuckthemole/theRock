@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import rocker, Location, Destination, Review, Comment
+from .models import rocker, Sport, Location, Destination, Review, Comment
 
 admin.site.register(rocker)
 admin.site.register(Location)

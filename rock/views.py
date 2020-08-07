@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 
 # Import all the models created so far
-from .models import rocker, Location, Destination, Review, Comment
+from .models import rocker, Sport, Location, Destination, Review, Comment
 
 # import User model
 from django.contrib.auth.models import User
@@ -65,7 +65,6 @@ def dashboard(request):
             return render(request, "rock/dashboard.html", {"user":user, "my_locations": my_locations})
 #=======
             return render(request, "rock/dashboard.html", {"user":user, "my_locations":my_locations})
-#>>>>>>> master
 
 def create(request):
     if request.method == "POST":
@@ -191,35 +190,84 @@ def delete_destination(request, destination_id):
     pass
 
 # Locations
-def publish_location(request):
+def publish_location(request, sport_id):
     if request.method == "GET":
         user = request.user
         if not user.is_authenticated:
             return redirect("rock:login")
         else:
-            return render(request, "rock/create_location.html", {"user":user} )
+            sport = get_object_or_404(Sport, pk=sport_id)
+            return render(request, "rock/create_location.html", {"user":user, "sport":sport} )
 
-def create_location(request):
+def publish_choose_sport(request):
+    if request.method == "GET":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+        else:
+            return render(request, "rock/choose_sport.html", {"user":user} )
+
+def create_sport(request):
     if request.method == "POST":
         user = request.user
         if not user.is_authenticated:
             return redirect("rock:login")
 
         rocker = user.rocker
-        country = request.POST["country"]
-        city = request.POST["city"]
-        is_my_location = request.POST.get('is_my_location', False)
-        is_visiting = request.POST.get('is_visiting', False)
+        choice = request.POST["sports"]
+
+        if choice == "basketball":
+            is_basketball=True
+            is_tennis=False
+            is_baseball=False
+        elif choice == "tennis":
+            is_basketball=False
+            is_tennis=True
+            is_baseball=False
+        elif choice == "baseball":
+            is_basketball=False
+            is_tennis=False
+            is_baseball=True
+        else:
+            print("no choice")
+
+        if not choice:
+            return render(request, "rock/choose_sport.html", {"error":"Please fill in all required fields"})
+
+        try:
+            sport = Sport.objects.create(rocker=rocker, sport=choice, is_basketball=is_basketball, is_tennis=is_tennis, is_baseball=is_baseball)
+            sport.save()
+            sport = get_object_or_404(Sport, pk=sport.id)
+            location = Location.objects.filter(sport=sport.id)
+            return render(request, "rock/show_sport.html",{"user":user, "sport":sport})
+        except:
+            return render(request, "rock/choose_sport.html", {"error":"Choose a sport!"})
+
+    else:
+        user = request.user
+        all_locations = Location.objects.all()
+        return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
+
+def create_location(request, sport_id):
+    if request.method == "POST":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+
+        sport = get_object_or_404(Sport, pk=sport_id)
+        rocker = user.rocker
+        address = request.POST["address"]
+        zip = request.POST["zip"]
 
         if not country and not city:
             return render(request, "rock/create_location.html", {"error":"Please fill in all required fields"})
 
         try:
-            location = Location.objects.create(rocker=rocker, country=country, city=city, is_my_location=is_my_location, is_visiting=is_visiting)
+            location = Location.objects.create(rocker=rocker, address=address, zip=zip, sport=sport)
             location.save()
             location = get_object_or_404(Location, pk=location.id)
             destination = Destination.objects.filter(location=location.id)
-            return render(request, "rock/show_location.html",{"user":user, "location":location, "destination": destination})
+            return render(request, "rock/show_location.html",{"user":user, "address":address, "zip": zip, "sport":sport})
 
         except:
             return render(request, "rock/create_location.html", {"error":"Can't create the location"})

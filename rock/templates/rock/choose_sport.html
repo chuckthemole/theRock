@@ -1,0 +1,35 @@
+<!-- html that lets the user choose the sport -->
+
+{% extends "rock/base.html" %}
+
+{% block content %}
+<div class="columns is-centered">
+  <div class="publish-form columns alt-front-background panel-block">
+    <div class="column" >
+      <h4 class="title is-5">
+        What sport?
+      </h4>
+
+      {% if error %}
+        <h3 style="color: red">
+          {{ error }}
+        </h3>
+      {% endif %}
+
+      <form action="{% url 'rock:create_sport' %}" method="post">
+        {% csrf_token %}
+
+        <label>Choose a sport:</label>
+        <select name="sports">
+          <option value="basketball">basketball</option>
+          <option value="baseball">baseball</option>
+          <option value="tennis">tennis</option>
+        </select>
+        <br><br>
+        <input class="button is-primary is-medium" type="submit" value="Create a location...">
+  
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

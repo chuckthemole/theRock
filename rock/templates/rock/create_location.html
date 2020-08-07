@@ -3,50 +3,59 @@
 {% extends "rock/base.html" %}
 
 {% block content %}
-    <div class="publish-form columns">
-      <div class="column is-one-fifth">
-        <div class="column" >
-            <h4 class="title is-5">Create your new location:</h4>
-             {% if error %}
-                    <h3 style="color: red">{{ error }}</h3>
-                {% endif %}
-            <form action="{% url 'rock:create_location' %}" method="post">
-            {% csrf_token %}
-                <div class="field">
-                  <div class="control">
-                    <label class="label">*Country</label>
-                    <input class="input is-primary" placeholder="Country" type="text" name="country">
-                  </div>
-                </div>
+  <div class="columns is-centered">
+    <div class="publish-form columns alt-front-background panel-block">
+      <div class="column" >
+        <h1 class="title is-2"><span style="color:#1496ed">{{ sport.sport }}</span> </h1>
+        <h4 class="title is-5">Where is the rock located?</h4>
 
-                <div class="field">
-                      <div class="control">
-                        <label class="label">*City</label>
-                        <input class="input is-primary" placeholder="City" name="city">
-                        </input>
-                      </div>
-                </div>
+        {% if error %}
+          <h3 style="color: red">{{ error }}</h3>
+        {% endif %}
 
-                <label class="checkbox">
-                  <br>Is this where you live?
-                      <input type="checkbox"  id="my_location" name="my_location" />
-                </label>
-
-                <label class="checkbox">
-                  <br>Or are you visiting?
-                      <input type="checkbox"  id="visiting" name="visiting" />
-                </label>
-
-                <br><br><br>
-
-                <div class="field">
-                  <div class="control">
-                    <button class="button is-success is-outlined is-fullwidth" type="submit" value="Publish">Publish</button>&nbsp;
-                  </div>
-                </div>
-
-            </form>
+        <form action="{% url 'rock:create_location' sport.id %}" method="post">
+          {% csrf_token %}
+            <div class="field">
+              <div class="control">
+                <label class="label">*Address</label>
+                <input class="input is-primary" placeholder="123 Cool Court Drive" type="text" name="address">
+              </div>
             </div>
-         </div>
+
+            <div class="field">
+              <div class="control">
+                <label class="label">
+                  *Zip Code
+                </label>
+                <input class="input is-primary" placeholder="42069" name="zip">
+                </input>
+              </div>
+            </div>
+
+            <!--
+            <label class="checkbox">
+              <br>
+              Is this where you live?
+              <input type="checkbox"  id="my_location" name="my_location" />
+            </label>
+
+            <label class="checkbox">
+              <br>
+              Or are you visiting?
+              <input type="checkbox"  id="visiting" name="visiting" />
+            </label>
+            -->
+
+            <br><br><br>
+
+            <div class="field">
+              <div class="control">
+                <button class="button is-success is-outlined is-fullwidth" type="submit" value="Publish">Publish</button>&nbsp;
+              </div>
+            </div>
+
+        </form>
+      </div>
     </div>
+  </div>
 {% endblock content %}

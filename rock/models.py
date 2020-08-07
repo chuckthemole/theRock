@@ -13,22 +13,38 @@ class rocker(models.Model):
 	created = models.DateField(auto_now=True)   # maybe redundant, user model has date_joined :)
 	updated = models.DateField(auto_now=True)
 
+class Sport(models.Model):
+	def __str__(self):
+		return sport
+
+	# FK
+	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
+
+	sport = models.TextField(max_length=30, null=False, blank=False, unique=False)
+	is_basketball = models.BooleanField(default=False)
+	is_tennis = models.BooleanField(default=False)
+	is_baseball = models.BooleanField(default=False)
+
+	created = models.DateField(auto_now=True)
+	updated = models.DateField(auto_now=True)
+
 class Location(models.Model):
 	def __str__(self):
 		return self.city
 	def num_of_destinations(self):
 		destinations = Destination.objects.filter(location=self)
 		return len(destinations)
-	#FK
+	# FK
 	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
+	sport = models.ForeignKey(Sport, on_delete=models.CASCADE, null=True)
 
-	country = models.TextField(max_length=30, null=False, blank=False, unique=False)
-	city = models.TextField(max_length=30, null=False, blank=False, unique=False)
+	zip = models.TextField(max_length=5, null=False, blank=False, unique=False, default="")
+	address = models.TextField(max_length=30, null=False, blank=False, unique=False, default="")
 	#image = models.ImageField(upload_to='myproblems/', blank=True)
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)     # everytime the obj is saved, new time is saved
-	is_my_location = models.BooleanField(default=False)
-	is_visiting = models.BooleanField(default=False)
+	#is_my_location = models.BooleanField(default=False)
+	#is_visiting = models.BooleanField(default=False)
 
 class Destination(models.Model):
 	def __str__(self):
