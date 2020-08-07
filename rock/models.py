@@ -20,7 +20,7 @@ class Location(models.Model):
 		destinations = Destination.objects.filter(location=self)
 		return len(destinations)
 	#FK
-	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE)
+	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
 
 	country = models.TextField(max_length=30, null=False, blank=False, unique=False)
 	city = models.TextField(max_length=30, null=False, blank=False, unique=False)
@@ -35,8 +35,8 @@ class Destination(models.Model):
 		return self.title
 
 	#FK
-	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE)
-	location = models.ForeignKey(Location, on_delete=models.CASCADE)
+	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
+	location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
 
 	address = models.TextField(max_length=30, null=False, blank=False, unique=False)
 	zip_code = models.TextField(max_length=10, null=False, blank=False, unique=False)
@@ -51,8 +51,9 @@ class Review(models.Model):
 		return self.title
 
 	#FK
-	destination = models.ForeignKey(Destination, on_delete=models.CASCADE)
-	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE)
+	destination = models.ForeignKey(Destination, on_delete=models.CASCADE, null=True)
+	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
+
 	title = models.TextField(max_length=30, null=False, blank=False, unique=False)
 	stars = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
 	feedback = models.TextField(max_length=200, unique=False, blank=True)
