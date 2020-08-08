@@ -8,8 +8,8 @@
         <div class="column" >
             <h4 class="title is-5">Create your new destination:</h4>
              {% if error %}
-                    <h3 style="color: red">{{ error }}</h3>
-                {% endif %}
+                <h3 style="color: red">{{ error }}</h3>
+             {% endif %}
             <form action="{% url 'rock:create_destination' location.id %}" method="post">
             {% csrf_token %}
 

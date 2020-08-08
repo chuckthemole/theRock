@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
-
+from pandas import DataFrame
 # Import all the models created so far
 from .models import rocker, Sport, Location, Destination, Review, Comment
+
+import googlemaps
+from datetime import datetime
 
 # import User model
 from django.contrib.auth.models import User
@@ -50,7 +53,10 @@ def dashboard(request):
         if not user.is_authenticated:
             return redirect("rock:login")
         else:
-            my_locations = Location.objects.filter(rocker=user.rocker.id)
+            try:
+                my_locations = Location.objects.filter(rocker=user.rocker.id)
+            except:
+                return redirect("rock:login")
 
             print('*********** Testing objs retrieved from DB ************')
             #print('my_problems:', my_problems)
@@ -241,6 +247,7 @@ def create_sport(request):
         all_locations = Location.objects.all()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
 
+import decimal
 def create_location(request, sport_id):
     if request.method == "POST":
         user = request.user
@@ -252,6 +259,14 @@ def create_location(request, sport_id):
         address = request.POST["address"]
         zip = request.POST["zip"]
 
+        # Geocoding an address
+        gmaps = googlemaps.Client(key='AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko')
+        geocode_result = gmaps.geocode(address + " " + zip)
+        df = DataFrame (geocode_result)
+        loc = DataFrame (df['geometry'][0])
+        latitude = decimal.Decimal(float(loc['location'][0]))
+        longitude = decimal.Decimal(float(loc['location'][1]))
+
         if not address and not zip:
             return render(request, "rock/create_location.html", {"error":"Please fill in all required fields"})
 
@@ -259,13 +274,9 @@ def create_location(request, sport_id):
             location = Location.objects.create(rocker=rocker, address=address, zip=zip, sport=sport)
             location.save()
             location = get_object_or_404(Location, pk=location.id)
-            destination = Destination.objects.filter(location=location.id)
 
-            # TODO: move this token to Django settings from an environment variable
-            # found in the Mapbox account settings and getting started instructions
-            # see https://www.mapbox.com/account/ under the "Access tokens" section
-            mapbox_access_token = 'pk.eyJ1IjoiY2h1Y2t0aGVtb2xlIiwiYSI6ImNrZGt1cWc4NTA0MXYyc2tiaDF0Z3I4aXYifQ.CcukNwNDYUffFZtAqk3Wsg'
-            return render(request, "rock/show_map.html", {"user":user, "address":address, "zip":zip, "sport":sport})
+            return render(request, "rock/show_map.html",
+                {"longitude":longitude, "latitude":latitude, "user":user, "address":address, "zip":zip, "sport":sport})
         except:
             return render(request, "rock/create_location.html", {"error":"Can't create the location"})
 

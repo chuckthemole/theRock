@@ -40,6 +40,8 @@ class Location(models.Model):
 
 	zip = models.TextField(max_length=5, null=False, blank=False, unique=False, default="")
 	address = models.TextField(max_length=30, null=False, blank=False, unique=False, default="")
+	#longitude = models.DecimalField(max_digits=8, decimal_places=6, null=True, blank=True, default=None)
+	#latitude = models.DecimalField(max_digits=8, decimal_places=6, null=True, blank=True, default=None)
 	#image = models.ImageField(upload_to='myproblems/', blank=True)
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)     # everytime the obj is saved, new time is saved

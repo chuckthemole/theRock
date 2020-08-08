@@ -5,12 +5,6 @@
 
 {% block content %}
 
-<head>
-  {% load static %}
-  <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
-</head>
-
 <div class="has-text-centered tile is-ancestor">
   <div style="margin: auto" class="tile is-8 is-parent">
     <div class="tile is-child box front-background">
@@ -18,7 +12,14 @@
         <span style="color:blue">
           {{ user.username }}
         </span>
-        <br>This is the location of the {{sport.sport}}
+        <br>
+          {% if sport.sport == 'basketball' %}
+            This is the location of the basketball court
+          {% elif sport.sport == 'tennis' %}
+            This is the location of the tennis court
+          {% elif sport.sport == 'baseball' %}
+            This is the location of the baseball field
+          {% endif %}
       </h2>
     </div>
   </div>
@@ -28,36 +29,28 @@
 <br>
 <br>
 
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
-<link
-rel="stylesheet"
-href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
-type="text/css"
-/>
-<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-
-<div id='map' style='width: 100%; height: 300px;'></div>
+<!-- html map tag -->
+<div id='map' style='width: 100%; height: 400px;'></div>
 
 <script>
-mapboxgl.accessToken =
-  'pk.eyJ1IjoiY2h1Y2t0aGVtb2xlIiwiYSI6ImNrZGt1cWc4NTA0MXYyc2tiaDF0Z3I4aXYifQ.CcukNwNDYUffFZtAqk3Wsg';
-
-var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v11',
-  center: [90.91, 38.91],
-  zoom: 9,
-});
-
-map.addControl(
-  new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl,
-  })
-);
-
+// Initialize and add the map
+function initMap() {
+  // The location of Uluru
+  var uluru = {lat: {{latitude}}, lng: {{longitude}} };
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 17, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+}
+</script>
+<!--Load the API from the specified URL
+* The async attribute allows the browser to render the page while the API loads
+* The key parameter will contain your own API key (which is not needed for this tutorial)
+* The callback parameter executes the initMap() function
+-->
+<script defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap">
 </script>
 
 {% endblock content %}
