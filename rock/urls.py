@@ -51,4 +51,8 @@ urlpatterns = [
 
     # Map
     path('comment/<int:sport_id/show', views.show_map, name='show_map'),
+
+    # Testing
+    path('test', views.test, name='test'),
+
 ]

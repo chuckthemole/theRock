@@ -20,15 +20,19 @@
       <a class="button is-info is-medium" href="{% url 'rock:publish_choose_sport' %}">
         Make a new location
       </a>
+      <br><br>
 
- {% for t in my_locations %}
-   <div class="box">
-     <div class="content" align="left">
-       <a class="button is-success is-medium" href="{% url 'rock:show_location' t.id %}">
-         {{ t.city }}, {{ t.country }}
-       </a>
-     </div>
-   </div>
- {% endfor %}
+      {% for t in my_locations %}
+      <div class="box">
+        <div class="content" align="left">
+           <a class="button is-success is-medium" href="{% url 'rock:show_location' t.id %}">
+             {{ t.city }}, {{ t.country }}
+           </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
 {% endblock content %}

@@ -43,7 +43,7 @@ def dashboard(request):
     print('request.headers["host"]:', request.headers['host'])
     print('request.method: ', request.method)
     print('request.user:' , request.user)
-    print('*******************************')
+    print('********************************************')
 
     if request.method == "GET":
         user = request.user
@@ -51,19 +51,12 @@ def dashboard(request):
             return redirect("rock:login")
         else:
             my_locations = Location.objects.filter(rocker=user.rocker.id)
-            #my_problems = Problem.objects.filter(coder=user.coder.id)   # Problem table has a coder field (FK)
-            #my_scripts =  Script.objects.filter(coder=user.coder.id)
-
-            my_locations = Location.objects.filter(rocker=user.rocker.id)   # Problem table has a coder field (FK)
 
             print('*********** Testing objs retrieved from DB ************')
             #print('my_problems:', my_problems)
             #print('my_scripts:', my_scripts)
-            print('*******************************')
+            print('*******************************************************')
 
-#<<<<<<< HEAD
-            return render(request, "rock/dashboard.html", {"user":user, "my_locations": my_locations})
-#=======
             return render(request, "rock/dashboard.html", {"user":user, "my_locations":my_locations})
 
 def create(request):
@@ -268,13 +261,11 @@ def create_location(request, sport_id):
             location = get_object_or_404(Location, pk=location.id)
             destination = Destination.objects.filter(location=location.id)
 
-
             # TODO: move this token to Django settings from an environment variable
             # found in the Mapbox account settings and getting started instructions
             # see https://www.mapbox.com/account/ under the "Access tokens" section
-            mapbox_access_token = 'pk.eyJ1IjoiY2h1Y2t0aGVtb2xlIiwiYSI6ImNrZGt1cWc4NTA0MXYyc2tiaDF0Z3I4aXYifQ.CcukNwNDYUffFZtAqk3Wsg';
-            return render(request, "rock/show_map.html", {"mapbox_access_token": mapbox_access_token, "user":user, "address":address, "zip": zip, "sport":sport})
-
+            mapbox_access_token = 'pk.eyJ1IjoiY2h1Y2t0aGVtb2xlIiwiYSI6ImNrZGt1cWc4NTA0MXYyc2tiaDF0Z3I4aXYifQ.CcukNwNDYUffFZtAqk3Wsg'
+            return render(request, "rock/show_map.html", {"user":user, "address":address, "zip":zip, "sport":sport})
         except:
             return render(request, "rock/create_location.html", {"error":"Can't create the location"})
 
@@ -283,17 +274,22 @@ def create_location(request, sport_id):
         all_locations = Location.objects.all()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
 
-def show_map(request, location_id):
+def test(request, ):
     if request.method == "GET":
         user = request.user
+
+        sport = get_object_or_404(Sport, 1)
+        rocker = user.rocker
+        address = "123 test"
+        zip = "123456"
+
         if not user.is_authenticated:
             return redirect("rock:login")
         else:
-            review = get_object_or_404(Review, pk=review_id)
-            comments = Comment.objects.filter(review=review_id)
-            return render(request, "rock/show_comment.html", {"user":user, "review":review, "comments":comments})
+            return render(request, "rock/show_map.html", {"mapbox_access_token":mapbox_access_token, "user":user, "address":address, "zip":zip, "sport":sport})
 
-
+def show_map():
+    pass
 
 def show_location(request, location_id):
     if request.method == "GET":
@@ -492,7 +488,6 @@ def update_comment(request, review_id):
 
 def delete_comment(request, review_id):
     pass
-#=======
     if request.method == "POST":
         user = request.user
         if not user.is_authenticated:
@@ -520,4 +515,3 @@ def delete_comment(request, review_id):
         user = request.user
         all_locations = Location.objects.all()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
-#>>>>>>> master
