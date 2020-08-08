@@ -50,7 +50,13 @@ urlpatterns = [
     path('sport/create', views.create_sport, name='create_sport'),
 
     # Map
-    path('comment/<int:sport_id/show', views.show_map, name='show_map'),
+    path('map/<int:sport_id/show', views.show_map, name='show_map'),
+
+    # Sport Location
+    path('sport_location/<int:sport_id/publish', views.publish_sport_location, name='publish_sport_location'),
+    path('sport_location/<int:sport_id/create', views.create_sport_location, name='create_sport_location'),
+    path('sport_location/<int:sport_id/show', views.show_sport_location, name='show_sport_location'),
+
 
     # Testing
     path('test', views.test, name='test'),

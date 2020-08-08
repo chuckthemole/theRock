@@ -21,6 +21,9 @@
             This is the location of the baseball field
           {% endif %}
       </h2>
+      <p>
+        Input: {{address}} {{zip}}
+      </p>
     </div>
   </div>
 </div>
@@ -52,5 +55,7 @@ function initMap() {
 <script defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap">
 </script>
+
+<a href="{% url 'rock:publish_sport_location' %}" class="button is-primary is-medium">Next</a>
 
 {% endblock content %}

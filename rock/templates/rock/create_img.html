@@ -16,18 +16,9 @@
         </h3>
       {% endif %}
 
-      <form action="{% url 'rock:create_sport' %}" method="post">
+      <form action="{% url 'rock:create_sport_location' %}" method="post">
         {% csrf_token %}
-
-        <label>Choose a sport:</label>
-        <select name="sports">
-          <option value="basketball">basketball</option>
-          <option value="baseball">baseball</option>
-          <option value="tennis">tennis</option>
-        </select>
-        <br><br>
-        <input class="button is-primary is-medium" type="submit" value="Create a location...">
-  
+        <input class="button is-primary is-medium" type="submit" value="Add image...">
       </form>
 
     </div>

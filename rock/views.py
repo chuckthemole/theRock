@@ -284,6 +284,19 @@ def create_location(request, sport_id):
         all_locations = Location.objects.all()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
 
+# Sport_Location
+def publish_sport_location(request, sport_id):
+    user = request.user
+    return render(request, "rock/index.html", {"user":user})
+
+
+def create_sport_location(request, sport_id):
+    pass
+
+def show_sport_location(request, sport_id):
+    pass
+
+
 def test(request, ):
     if request.method == "GET":
         user = request.user
