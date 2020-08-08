@@ -247,7 +247,6 @@ def create_sport(request):
         all_locations = Location.objects.all()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
 
-import decimal
 def create_location(request, sport_id):
     if request.method == "POST":
         user = request.user
@@ -264,14 +263,14 @@ def create_location(request, sport_id):
         geocode_result = gmaps.geocode(address + " " + zip)
         df = DataFrame (geocode_result)
         loc = DataFrame (df['geometry'][0])
-        latitude = decimal.Decimal(float(loc['location'][0]))
-        longitude = decimal.Decimal(float(loc['location'][1]))
+        latitude = float(loc['location'][0])
+        longitude = float(loc['location'][1])
 
         if not address and not zip:
             return render(request, "rock/create_location.html", {"error":"Please fill in all required fields"})
 
         try:
-            location = Location.objects.create(rocker=rocker, address=address, zip=zip, sport=sport)
+            location = Location.objects.create(latitude=latitude, longitude=longitude, rocker=rocker, address=address, zip=zip, sport=sport)
             location.save()
             location = get_object_or_404(Location, pk=location.id)
 
