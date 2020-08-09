@@ -17,16 +17,18 @@
         Welcome to rocker.
       </h2>
       <h4 class="title is-5" style="color:#1496ed">
-        Take a look at the list of rock destinations:
+        Take a look at the list of rock destinations created by rocker users
       </h4>
 
-      <!-- we have the object {'all_problems': all_problems} from the views  -->
-      {% for t in all_locations %}
-        <div class="box">
-          <div class="content" align="left">
-            <a class="button is-success is-medium" href="{% url 'rock:show_location' t.id %}">
-              {{ t.city }}, {{ t.country }}
-            </a>
+      <!-- List all destinations -->
+      {% for location in all_locations %}
+        <div class="box alt-front-background">
+          <div class="content alt-front-background" align="left">
+            <center>
+              <a class="button is-success is-medium" href="{% url 'rock:show_location' location.id %}">
+                {{ location }}
+              </a>
+            </center>
           </div>
         </div>
       {% endfor %}
