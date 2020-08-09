@@ -57,6 +57,7 @@ urlpatterns = [
     path('sport_location/<int:sport_id/create', views.create_sport_location, name='create_sport_location'),
     path('sport_location/<int:sport_id/show', views.show_sport_location, name='show_sport_location'),
 
+    path('success', views.success, name = 'success'),
 
     # Testing
     path('test', views.test, name='test'),

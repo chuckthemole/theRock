@@ -30,7 +30,7 @@ class Sport(models.Model):
 
 class Location(models.Model):
 	def __str__(self):
-		return self.city
+		return (self.address + self.zip)
 	def num_of_destinations(self):
 		destinations = Destination.objects.filter(location=self)
 		return len(destinations)
@@ -48,6 +48,16 @@ class Location(models.Model):
 	updated = models.DateField(auto_now=True)     # everytime the obj is saved, new time is saved
 	#is_my_location = models.BooleanField(default=False)
 	#is_visiting = models.BooleanField(default=False)
+
+class Sport_Location(models.Model):
+	def __str__(self):
+		return (self.address + self.zip)
+
+	# FK
+	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
+	location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
+
+	sport_location_img = models.ImageField(upload_to='images/')
 
 class Destination(models.Model):
 	def __str__(self):

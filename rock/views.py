@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from pandas import DataFrame
 # Import all the models created so far
-from .models import rocker, Sport, Location, Destination, Review, Comment
-
+from .models import rocker, Sport, Location, Sport_Location, Destination, Review, Comment
+from .forms import Sport_Location_Form
+from django import forms
 import googlemaps
 from datetime import datetime
 
@@ -247,6 +248,9 @@ def create_sport(request):
         all_locations = Location.objects.all()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
 
+def success(request):
+    return HttpResponse('successfully uploaded')
+
 def create_location(request, sport_id):
     if request.method == "POST":
         user = request.user
@@ -274,20 +278,38 @@ def create_location(request, sport_id):
             location.save()
             location = get_object_or_404(Location, pk=location.id)
 
+            # form for uploadin image
+            form = Sport_Location_Form(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect(request, "rock/show_map.html",
+                    {"longitude":longitude, "latitude":latitude, "user":user, "address":address,
+                    "zip":zip, "sport":sport, "location": location, "form": form})
+
             return render(request, "rock/show_map.html",
-                {"longitude":longitude, "latitude":latitude, "user":user, "address":address, "zip":zip, "sport":sport})
+                {"longitude":longitude, "latitude":latitude, "user":user, "address":address,
+                "zip":zip, "sport":sport, "location": location, "form": form})
         except:
             return render(request, "rock/create_location.html", {"error":"Can't create the location"})
 
     else:
         user = request.user
         all_locations = Location.objects.all()
+        form = Sport_Location_Form()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
 
 # Sport_Location
 def publish_sport_location(request, sport_id):
-    user = request.user
-    return render(request, "rock/index.html", {"user":user})
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            user = request.user
+            all_locations = Location.objects.all()   # all_problems is a list object [   ]
+
+            return render(request, "rock/index.html", {"user":user, "all_locations": all_locations})
+        else:
+            return redirect("rock:login")
+    else:
+        return HttpResponse(status=500)
 
 
 def create_sport_location(request, sport_id):
