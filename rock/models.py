@@ -30,7 +30,7 @@ class Sport(models.Model):
 
 class Location(models.Model):
 	def __str__(self):
-		return (self.address + self.zip)
+		return (self.address + " " + self.zip)
 	def num_of_destinations(self):
 		destinations = Destination.objects.filter(location=self)
 		return len(destinations)
