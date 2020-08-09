@@ -248,8 +248,11 @@ def create_sport(request):
         all_locations = Location.objects.all()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
 
-def success(request):
-    return HttpResponse('successfully uploaded')
+def create_form(request, form, sport_location):
+    if form.is_valid():
+        form.save()
+        return render((request, 'rock/map/show_success_map.html',
+                     {'sport_location' : sport_location}))
 
 def create_location(request, sport_id):
     if request.method == "POST":
@@ -277,18 +280,19 @@ def create_location(request, sport_id):
             location = Location.objects.create(latitude=latitude, longitude=longitude, rocker=rocker, address=address, zip=zip, sport=sport)
             location.save()
             location = get_object_or_404(Location, pk=location.id)
-
-            # form for uploadin image
-            form = Sport_Location_Form(request.POST, request.FILES)
+            #sport_location = Sport_Location.objects.create(rocker=rocker, location=location)
+            """
+            # form for uploading image
+            form = Sport_Location_Form(request.POST, request.FILES, instance=location)
             if form.is_valid():
-                form.save()
-                return redirect(request, "rock/map/show_map.html",
-                    {"longitude":longitude, "latitude":latitude, "user":user, "address":address,
-                    "zip":zip, "sport":sport, "location": location, "form": form})
-
+                location_img = form.save()
+                return render((request, 'rock/map/show_success_map.html',
+                             {'sport_location' : location_img}))
+            """
             return render(request, "rock/map/show_map.html",
                 {"longitude":longitude, "latitude":latitude, "user":user, "address":address,
-                "zip":zip, "sport":sport, "location": location, "form": form})
+                "zip":zip, "sport":sport, "location": location, #"form": form,
+                "location": location})
         except:
             return render(request, "rock/location/create_location.html", {"error":"Can't create the location"})
 
@@ -297,6 +301,52 @@ def create_location(request, sport_id):
         all_locations = Location.objects.all()
         form = Sport_Location_Form()
         return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't create!"})
+
+def location_to_image(request, location_id):
+    if request.method == "GET":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+        else:
+            location = get_object_or_404(Location, pk=location_id)
+            return render(request, "rock/image/create_image.html",{"user":user, "location":location})
+
+# Image
+def publish_image(request, location_id):
+    if request.method == "GET":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+        else:
+            location = get_object_or_404(Location, pk=location_id)
+            form = Sport_Location_Form(request.POST, request.FILES, instance=location)
+
+            return render(request, "rock/image/create_image.html", {"user": user, "location": location, "form": form} )
+
+def create_image(request, location_id, form):
+    if request.method == 'POST':
+        location = get_object_or_404(Location, pk=location_id)
+        form = Sport_Location_Form(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+    else:
+        form = Sport_Location_Form()
+    return render(request, 'show_success_map.html', {'form' : form})
+
+
+def success(request):
+    return HttpResponse('successfully uploaded')
+
+
+# Display image
+def display_location_img(request):
+    if request.method == 'GET':
+
+        sport_locations = Sport_Location.objects.all()
+        return render((request, 'show_success_map.html',
+                     {'location_images' : sport_locations}))
 
 # Sport_Location
 def publish_sport_location(request, sport_id):

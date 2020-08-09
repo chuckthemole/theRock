@@ -43,6 +43,8 @@ class Location(models.Model):
 	address = models.TextField(max_length=30, null=False, blank=False, unique=False, default="")
 	longitude = models.FloatField(null=True, blank=True, default=None)
 	latitude = models.FloatField(null=True, blank=True, default=None)
+	location_img = models.ImageField(upload_to='images/', blank=True)
+
 	#image = models.ImageField(upload_to='myproblems/', blank=True)
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)     # everytime the obj is saved, new time is saved

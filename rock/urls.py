@@ -53,13 +53,19 @@ urlpatterns = [
     path('map/<int:sport_id/show', views.show_map, name='show_map'),
 
     # Sport Location
-    path('sport_location/<int:sport_id/publish', views.publish_sport_location, name='publish_sport_location'),
-    path('sport_location/<int:sport_id/create', views.create_sport_location, name='create_sport_location'),
-    path('sport_location/<int:sport_id/show', views.show_sport_location, name='show_sport_location'),
+    path('sport_location/<int:sport_id>/publish', views.publish_sport_location, name='publish_sport_location'),
+    path('sport_location/<int:sport_id>/create', views.create_sport_location, name='create_sport_location'),
+    path('sport_location/<int:sport_id>/show', views.show_sport_location, name='show_sport_location'),
 
     path('success', views.success, name = 'success'),
 
     # Testing
     path('test', views.test, name='test'),
 
+    path('create', views.create_form, name='create_form'),
+
+    path('image/<int:location_id>/publish', views.publish_image, name='publish_image'),
+    path('image/<int:location_id>/create', views.create_image, name='create_image'),
+
+    path('location_to_image/<int:location_id>/transition', views.location_to_image, name="location_to_image"),
 ]

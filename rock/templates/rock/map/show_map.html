@@ -56,6 +56,7 @@ function initMap() {
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap">
 </script>
 
+<!--
 <form method = "post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
@@ -63,10 +64,10 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf
     Upload
   </button>
 </form>
+-->
 
-
-<a href="{% url 'rock:publish_sport_location' %}" class="button is-primary is-medium">
-  Next
+<a href="{% url 'rock:publish_image' location.id %}" class="button is-primary is-medium">
+  Add Image
 </a>
 
 {% endblock content %}
