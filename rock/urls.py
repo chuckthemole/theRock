@@ -46,7 +46,7 @@ urlpatterns = [
     path('comment/<int:comment_id>/delete', views.delete_comment, name='delete_comment'),
 
     # Sports
-    path('sport/publish', views.publish_choose_sport, name='publish_choose_sport'),
+    path('sport/publish', views.publish_create_sport, name='publish_create_sport'),
     path('sport/create', views.create_sport, name='create_sport'),
 
     # Map

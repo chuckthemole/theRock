@@ -130,7 +130,7 @@ def publish_destination(request, location_id):
             return redirect("rock:login")
         else:
             location = get_object_or_404(Location, pk=location_id)
-            return render(request, "rock/create_destination.html", {"user":user, "location":location} )
+            return render(request, "rock/destination/create_destination.html", {"user":user, "location":location} )
 
 def create_destination(request, location_id):
     if request.method == "POST":
@@ -141,7 +141,7 @@ def create_destination(request, location_id):
         location = get_object_or_404(Location, pk=location_id)
 
         if not request.POST["title"]:
-            return render(request, "rock/create_destination.html", {"user":user, "location":location, "error":"Please fill in all required fields"})
+            return render(request, "rock/destination/create_destination.html", {"user":user, "location":location, "error":"Please fill in all required fields"})
         else:
             #rocker, Location, address, zip, title, description
             rocker = user.rocker
@@ -151,7 +151,7 @@ def create_destination(request, location_id):
             description = request.POST["description"]
 
         #if not zip_code and not title and not description:
-        #    return render(request, "rock/create_destination.html", {"user":user, "location":location, "error":"Please fill in all required fields"})
+        #    return render(request, "rock/destination/create_destination.html", {"user":user, "location":location, "error":"Please fill in all required fields"})
 
         try:
             destination = Destination.objects.create(rocker=rocker, location=location, address=address, zip_code=zip_code, title=title, description=description)
@@ -159,10 +159,10 @@ def create_destination(request, location_id):
             destination = get_object_or_404(Destination, pk=destination.id)
             location = get_object_or_404(Location, pk=location_id)
             reviews = Review.objects.filter(destination=destination.id)
-            return render(request, "rock/show_destination.html", {"rocker":rocker, "user":user, "location":location, "destination": destination, "reviews": reviews})
+            return render(request, "rock/destination/show_destination.html", {"rocker":rocker, "user":user, "location":location, "destination": destination, "reviews": reviews})
 
         except:
-            return render(request, "rock/create_destination.html", {"error":"Can't create the destination"})
+            return render(request, "rock/destination/create_destination.html", {"error":"Can't create the destination"})
 
     else:
         user = request.user
@@ -178,7 +178,7 @@ def show_destination(request, destination_id):
             # make sure to import the fucntion get_object_or_404 from  django.shortcuts
             destination = get_object_or_404(Destination, pk=destination_id)
             reviews = Review.objects.filter(destination=destination_id)
-            return render(request, "rock/show_destination.html", {"user":user, "destination":destination, "reviews":reviews})
+            return render(request, "rock/destination/show_destination.html", {"user":user, "destination":destination, "reviews":reviews})
 
 def edit_destination(request, destination_id):
     pass
@@ -197,15 +197,15 @@ def publish_location(request, sport_id):
             return redirect("rock:login")
         else:
             sport = get_object_or_404(Sport, pk=sport_id)
-            return render(request, "rock/create_location.html", {"user":user, "sport":sport} )
+            return render(request, "rock/location/create_location.html", {"user":user, "sport":sport} )
 
-def publish_choose_sport(request):
+def publish_create_sport(request):
     if request.method == "GET":
         user = request.user
         if not user.is_authenticated:
             return redirect("rock:login")
         else:
-            return render(request, "rock/choose_sport.html", {"user":user} )
+            return render(request, "rock/sport/create_sport.html", {"user":user} )
 
 def create_sport(request):
     if request.method == "POST":
@@ -232,16 +232,16 @@ def create_sport(request):
             print("no choice")
 
         if not choice:
-            return render(request, "rock/choose_sport.html", {"error":"Please fill in all required fields"})
+            return render(request, "rock/sport/create_sport.html", {"error":"Please fill in all required fields"})
 
         try:
             sport = Sport.objects.create(rocker=rocker, sport=choice, is_basketball=is_basketball, is_tennis=is_tennis, is_baseball=is_baseball)
             sport.save()
             sport = get_object_or_404(Sport, pk=sport.id)
             location = Location.objects.filter(sport=sport.id)
-            return render(request, "rock/show_sport.html",{"user":user, "sport":sport})
+            return render(request, "rock/sport/show_sport.html",{"user":user, "sport":sport})
         except:
-            return render(request, "rock/choose_sport.html", {"error":"Choose a sport!"})
+            return render(request, "rock/sport/create_sport.html", {"error":"Choose a sport!"})
 
     else:
         user = request.user
@@ -271,7 +271,7 @@ def create_location(request, sport_id):
         longitude = float(loc['location'][1])
 
         if not address and not zip:
-            return render(request, "rock/create_location.html", {"error":"Please fill in all required fields"})
+            return render(request, "rock/location/create_location.html", {"error":"Please fill in all required fields"})
 
         try:
             location = Location.objects.create(latitude=latitude, longitude=longitude, rocker=rocker, address=address, zip=zip, sport=sport)
@@ -282,15 +282,15 @@ def create_location(request, sport_id):
             form = Sport_Location_Form(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return redirect(request, "rock/show_map.html",
+                return redirect(request, "rock/map/show_map.html",
                     {"longitude":longitude, "latitude":latitude, "user":user, "address":address,
                     "zip":zip, "sport":sport, "location": location, "form": form})
 
-            return render(request, "rock/show_map.html",
+            return render(request, "rock/map/show_map.html",
                 {"longitude":longitude, "latitude":latitude, "user":user, "address":address,
                 "zip":zip, "sport":sport, "location": location, "form": form})
         except:
-            return render(request, "rock/create_location.html", {"error":"Can't create the location"})
+            return render(request, "rock/location/create_location.html", {"error":"Can't create the location"})
 
     else:
         user = request.user
@@ -331,7 +331,7 @@ def test(request, ):
         if not user.is_authenticated:
             return redirect("rock:login")
         else:
-            return render(request, "rock/show_map.html", {"mapbox_access_token":mapbox_access_token, "user":user, "address":address, "zip":zip, "sport":sport})
+            return render(request, "rock/map/show_map.html", {"mapbox_access_token":mapbox_access_token, "user":user, "address":address, "zip":zip, "sport":sport})
 
 def show_map():
     pass
@@ -346,7 +346,7 @@ def show_location(request, location_id):
             location = get_object_or_404(Location, pk=location_id)
             destinations = Destination.objects.filter(location=location_id)
 
-            return render(request, "rock/show_location.html", {"user":user, "location":location, "destinations":destinations})
+            return render(request, "rock/location/show_location.html", {"user":user, "location":location, "destinations":destinations})
 
 def edit_location(request, location_id):
    if request.method == "GET":
@@ -358,7 +358,7 @@ def edit_location(request, location_id):
         # destinations = Destination.objects.filter(location=location_id)
 
         if location.rocker.user.id == location.rocker.user.id:
-            return render(request, "rock/edit_location.html", {"location":location})
+            return render(request, "rock/location/edit_location.html", {"location":location})
         else:
             return render(request, "rock/index.html",
             {"error":"You are not the author of the location that you tried to edit."})
@@ -373,7 +373,7 @@ def update_location(request, location_id):
         # destinations = Destination.objects.filter(location=location_id)
 
         if not request.POST["country"] or not request.POST["city"]:
-            return render(request, "rock/edit_location.html", {"location":location,
+            return render(request, "rock/location/edit_location.html", {"location":location,
             "error":"One of the required fields was empty"})
 
         else:
@@ -385,7 +385,7 @@ def update_location(request, location_id):
                 return redirect("rock:dashboard")
 
             else:
-                return render(request, "rock/edit_location.html",{"location":location, "error":"Can't update!"})
+                return render(request, "rock/location/edit_location.html",{"location":location, "error":"Can't update!"})
 
     else:
         # the user enteing    http://127.0.0.1:8000/problem/8/update
@@ -420,7 +420,7 @@ def publish_review(request, destination_id):
             return redirect("rock:login")
         else:
             destination = get_object_or_404(Destination, pk=destination_id)
-            return render(request, "rock/create_review.html", {"user":user, "destination":destination} )
+            return render(request, "rock/review/create_review.html", {"user":user, "destination":destination} )
 
 def create_review(request, destination_id):
     if request.method == "POST":
@@ -431,7 +431,7 @@ def create_review(request, destination_id):
         destination = get_object_or_404(Destination, pk=destination_id)
 
         if not request.POST["title"] and not request.POST["feedback"]:
-            return render(request, "rock/create_review.html", {"user":user, "destination":destination, "error":"Please fill in all required fields"})
+            return render(request, "rock/review/create_review.html", {"user":user, "destination":destination, "error":"Please fill in all required fields"})
         else:
             rocker = user.rocker
             title = request.POST["title"]
@@ -444,10 +444,10 @@ def create_review(request, destination_id):
             review = get_object_or_404(Review, pk=review.id)
             destination = get_object_or_404(Destination, pk=destination.id)
             comments = Comment.objects.filter(review=review.id)
-            return render(request, "rock/show_review.html", {"rocker":rocker, "user":user, "destination": destination, "review": review, "comments": comments})
+            return render(request, "rock/review/show_review.html", {"rocker":rocker, "user":user, "destination": destination, "review": review, "comments": comments})
 
         except:
-            return render(request, "rock/create_review.html", {"error":"Can't create the destination"})
+            return render(request, "rock/review/create_review.html", {"error":"Can't create the destination"})
 
     else:
         user = request.user
@@ -464,7 +464,7 @@ def show_review(request, review_id):
             review = get_object_or_404(Review, pk=review_id)
             comments = Comment.objects.filter(review=review_id)
 
-            return render(request, "rock/show_review.html", {"user":user, "review":review, "comments":comments})
+            return render(request, "rock/review/show_review.html", {"user":user, "review":review, "comments":comments})
 
 def edit_review(request, review_id):
     pass
@@ -483,7 +483,7 @@ def publish_comment(request, review_id):
             return redirect("rock:login")
         else:
             review = get_object_or_404(Review, pk=review_id)
-            return render(request, "rock/create_comment.html", {"user":user, "review":review} )
+            return render(request, "rock/comment/create_comment.html", {"user":user, "review":review} )
 
 def create_comment(request, review_id):
     if request.method == "POST":
@@ -494,7 +494,7 @@ def create_comment(request, review_id):
         review = get_object_or_404(Review, pk=review_id)
 
         if not request.POST["body"]:
-            return render(request, "rock/create_comment.html", {"user":user, "review":review, "error":"Please fill in all required fields"})
+            return render(request, "rock/comment/create_comment.html", {"user":user, "review":review, "error":"Please fill in all required fields"})
         else:
             rocker = user.rocker
             body = request.POST["body"]
@@ -504,10 +504,10 @@ def create_comment(request, review_id):
             comment.save()
             comments = Comment.objects.filter(review=review_id)
             destination = review.destination
-            return render(request, "rock/show_review.html", {"rocker":rocker, "user":user, "destination": destination, "review": review, "comments": comments})
+            return render(request, "rock/review/show_review.html", {"rocker":rocker, "user":user, "destination": destination, "review": review, "comments": comments})
 
         except:
-            return render(request, "rock/create_comment.html", {"error":"Can't create the comment"})
+            return render(request, "rock/comment/create_comment.html", {"error":"Can't create the comment"})
 
     else:
         user = request.user
@@ -541,7 +541,7 @@ def delete_comment(request, review_id):
         review = get_object_or_404(Review, pk=review_id)
 
         if not request.POST["body"]:
-            return render(request, "rock/create_comment.html", {"user":user, "review":review, "error":"Please fill in all required fields"})
+            return render(request, "rock/comment/create_comment.html", {"user":user, "review":review, "error":"Please fill in all required fields"})
         else:
             rocker = user.rocker
             body = request.POST["body"]
@@ -551,10 +551,10 @@ def delete_comment(request, review_id):
             comment.save()
             comments = Comment.objects.filter(review=review_id)
             destination = review.destination
-            return render(request, "rock/show_review.html", {"rocker":rocker, "user":user, "destination": destination, "review": review, "comments": comments})
+            return render(request, "rock/review/show_review.html", {"rocker":rocker, "user":user, "destination": destination, "review": review, "comments": comments})
 
         except:
-            return render(request, "rock/create_comment.html", {"error":"Can't create the comment"})
+            return render(request, "rock/comment/create_comment.html", {"error":"Can't create the comment"})
 
     else:
         user = request.user
