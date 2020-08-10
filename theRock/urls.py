@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings 
+from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('rock.urls'))
+    path('', include('rock.urls.collections', namespace='collections')),
+    path('', include('rock.urls.comment', namespace='comment')),
+    path('', include('rock.urls.destination', namespace='destination')),
+    path('', include('rock.urls.location', namespace='location')),
+    path('', include('rock.urls.map', namespace='map')),
+    path('', include('rock.urls.review', namespace='review')),
+    path('', include('rock.urls.sport', namespace='sport')),
 ]
 
 if settings.DEBUG:

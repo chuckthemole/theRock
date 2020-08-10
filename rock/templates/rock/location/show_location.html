@@ -21,24 +21,25 @@
 
         <div class="box">
 
-              {% for d in destinations %}
-                      <div class="content">
-                          <br>Destination Name: {{ d.title }}
-                          <a class="button is-primary is-med" href="{% url 'rock:show_destination' d.id %}">Show the destination ...</a>
-
-                      </div>
-              {% endfor %}
+          {% for d in destinations %}
+            <div class="content">
+                <br>Destination Name: {{ d.title }}
+                <a class="button is-primary is-med" href="{% url 'destination:show_destination' d.id %}">
+                  Show the destination ...
+                </a>
+            </div>
+          {% endfor %}
         </div>
 
       </div>
     </div>
 
-    <a class="button is-primary is-medium" href="{% url 'rock:publish_destination' location.id %}">
+    <a class="button is-primary is-medium" href="{% url 'destination:publish_destination' location.id %}">
       Make a destination
     </a>
 
     {% if user.id == location.rocker.user.id %}
-    <a class="button is-primary is-medium" href="{% url 'rock:edit_location' location.id %}">
+    <a class="button is-primary is-medium" href="{% url 'location:edit_location' location.id %}">
       Make changes ...
     </a>
     {% endif %}

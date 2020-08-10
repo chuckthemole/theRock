@@ -16,7 +16,7 @@
         </h3>
       {% endif %}
 
-      <form action="{% url 'rock:create_sport' %}" method="post">
+      <form action="{% url 'sport:create_sport' %}" method="post">
         {% csrf_token %}
 
         <label>Choose a sport:</label>
@@ -27,7 +27,7 @@
         </select>
         <br><br>
         <input class="button is-primary is-medium" type="submit" value="Create a location...">
-  
+
       </form>
 
     </div>

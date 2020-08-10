@@ -3,22 +3,20 @@
 {% block content %}
 
 <div class="columns">
-      <div class="column">
-
-        <div class="has-text-centered tile is-ancestor">
-          <div style="margin: auto" class="tile is-8 is-parent">
-              <div class="tile is-child box front-background">
-                  <h1 class="title is-2"> Hello
-                    <span style="color:#1496ed">
-                    {{ user.username }}
-                    </span>
-                  </h1>
-                  <h2 class="title is-3">Welcome to rocker</h2>
-              </div>
-         </div>
+  <div class="column">
+    <div class="has-text-centered tile is-ancestor">
+      <div style="margin: auto" class="tile is-8 is-parent">
+        <div class="tile is-child box front-background">
+          <h1 class="title is-2"> Hello
+            <span style="color:#1496ed">
+            {{ user.username }}
+            </span>
+          </h1>
+          <h2 class="title is-3">Welcome to rocker</h2>
         </div>
-
-      </div>
+     </div>
+    </div>
+  </div>
 </div>
 
 <div class="columns is-centered">
@@ -30,7 +28,7 @@
       </p>
 
       <div class="panel-block">
-        <form action="{% url 'rock:loguser' %}" method="post">
+        <form action="{% url 'collections:loguser' %}" method="post">
           {% csrf_token %}
           <div class="field">
               <label class="label">Username</label>
@@ -46,21 +44,20 @@
           </div>
 
           <div class="field">
-              <label class="label">Password</label>
+            <label class="label">Password</label>
               <div class="control has-icons-left">
-                  <input class="input" name="password" placeholder="Password" type="password">
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                  </span>
+                <input class="input" name="password" placeholder="Password" type="password">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
               </div>
-
           </div>
 
           <div class="field">
             <div class="control">
-                <button class="button is-success is-outlined is-fullwidth" type="submit" value="Login">
-                  Login
-                </button>&nbsp;
+              <button class="button is-success is-outlined is-fullwidth" type="submit" value="Login">
+                Login
+              </button>&nbsp;
             </div>
           </div>
         </form>

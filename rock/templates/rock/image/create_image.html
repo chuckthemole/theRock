@@ -6,7 +6,7 @@
 <form method = "post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
-  <button action="{% url 'rock:create_image' location.id form %}" class="button is-primary is-medium" type="submit">
+  <button action="{% url 'map:create_image' location.id form %}" class="button is-primary is-medium" type="submit">
     Upload
   </button>
 </form>

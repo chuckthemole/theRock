@@ -18,8 +18,8 @@
 
   <!-- brand is basketball -->
   <div class="navbar-brand">
-    <a class="navbar-item" href="{% url 'rock:index' %}">
-        <img src="{% static 'rock/images/bball.PNG' %}" alt=" icon" width="35" height="60">
+    <a class="navbar-item" href="{% url 'collections:index' %}">
+      <img src="{% static 'rock/images/bball.PNG' %}" alt=" icon" width="35" height="60">
     </a>
 
 
@@ -33,7 +33,7 @@
   <div id="navbarData" class="navbar-menu is-active" ><!-- navbar-menu hidden in mobile devices --><!-- is-actice makes id show in mobile devices -->
      <div class="navbar-start">
        <div class="navbar-item">
-         <a class="button is-primary" href="{% url 'rock:dashboard' %}">
+         <a class="button is-primary" href="{% url 'collections:dashboard' %}">
            My Dashboard
          </a>
        </div>
@@ -59,11 +59,17 @@
      <div class="navbar-item">
        <div class="buttons">
          {% if request.path == "/login" or request.path == "/loguser" %}
-         <a class="button is-primary" href="{% url 'rock:signup' %}">Signup</a>
+           <a class="button is-primary" href="{% url 'collections:signup' %}">
+             Signup
+           </a>
          {% elif request.path == "/signup"  %}
-         <a class="button is-primary" href="{% url 'rock:login' %}">Login</a>
+           <a class="button is-primary" href="{% url 'collections:login' %}">
+             Login
+           </a>
          {% else   %}
-         <a class="button is-primary" href="{% url 'rock:logout' %}">Logout</a>
+           <a class="button is-primary" href="{% url 'collections:logout' %}">
+             Logout
+           </a>
          {% endif %}
        </div>
       </div>

@@ -3,72 +3,72 @@
 {% block content %}
 
 <div class="columns is-centered">
-      <div class="column is-one-fifth">
+  <div class="column is-one-fifth">
 
-          <nav class="panel">
-            <p class="panel-heading" style="text-align:center">
-            <span><strong>Registration Form</strong></span>
-            </p>
-
-
-              <div class="panel-block">
-                  <!-- the action of the form goes to create function in views.py -->
-                   <form class="control" action="{% url 'rock:create' %}" method="post">
-                          {% csrf_token %}
-                          <div class="field">
-                              <label class="label">Username</label>
-                             <div class="control has-icons-left has-icons-right">
-                                  <input class="input" placeholder="Username" type="text" name="username"/>
-                                 <span class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                  </span>
-                                  <span class="icon is-small is-right">
-                                    <i class="fas fa-check"></i>
-                                  </span>
-                              </div>
-                          </div>
-                          <div class="field">
-                              <label class="label">Email</label>
-                             <div class="control has-icons-left has-icons-right">
-                                  <input class="input" placeholder="Email" type="email" name="email"/>
-                                 <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
-                                  </span>
-                                  <span class="icon is-small is-right">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                  </span>
-                              </div>
-                          </div>
-                          <div class="field">
-                              <label class="label">Password</label>
-                              <div class="control has-icons-left">
-                                  <input class="input" placeholder="Password" type="password" name="password">
-                                   <span class="icon is-small is-left">
-                                   <i class="fas fa-lock"></i>
-                                  </span>
-                              </div>
-                          </div>
-                          <div class="field">
-                              <p class="control">
-                                  <button class="button is-success" type="submit" value="Signup">Signup</button>
-                              </p>
-                          </div>
-                          <label class="checkbox">
-                              <input type="checkbox" id="coder_yet_checkbox" name="coder_yet_checkbox", value=False />
-                              <!-- Returns True if the checkbox is checked -->
-                              I am a rocker
-                          </label>
+    <nav class="panel">
+      <p class="panel-heading" style="text-align:center">
+      <span><strong>Registration Form</strong></span>
+      </p>
 
 
-                          <label class="checkbox">
-                              <input type="checkbox" id="local_checkbox" name="local_checkbox", value=False />
-                              <!-- Returns True if the checkbox is checked -->
-                              I am a local
-                          </label>
-                      </form>
+        <div class="panel-block">
+            <!-- the action of the form goes to create function in views.py -->
+             <form class="control" action="{% url 'collections:create' %}" method="post">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label class="label">Username</label>
+                       <div class="control has-icons-left has-icons-right">
+                            <input class="input" placeholder="Username" type="text" name="username"/>
+                           <span class="icon is-small is-left">
+                              <i class="fas fa-user"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                              <i class="fas fa-check"></i>
+                            </span>
+                        </div>
                     </div>
-          </nav>
-      </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                       <div class="control has-icons-left has-icons-right">
+                            <input class="input" placeholder="Email" type="email" name="email"/>
+                           <span class="icon is-small is-left">
+                              <i class="fas fa-envelope"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                              <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control has-icons-left">
+                            <input class="input" placeholder="Password" type="password" name="password">
+                             <span class="icon is-small is-left">
+                             <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <button class="button is-success" type="submit" value="Signup">Signup</button>
+                        </p>
+                    </div>
+                    <label class="checkbox">
+                        <input type="checkbox" id="coder_yet_checkbox" name="coder_yet_checkbox", value=False />
+                        <!-- Returns True if the checkbox is checked -->
+                        I am a rocker
+                    </label>
+
+
+                    <label class="checkbox">
+                        <input type="checkbox" id="local_checkbox" name="local_checkbox", value=False />
+                        <!-- Returns True if the checkbox is checked -->
+                        I am a local
+                    </label>
+                </form>
+              </div>
+    </nav>
+  </div>
   </div>
 
 {% endblock content %}

@@ -56,13 +56,13 @@ reviews: {{reviews}} <br>
                   <!-- Module 6 -->
                   {% if user.id == destination.rocker.user.id and not reviews %}
                     <a class="button is-primary is-medium"
-                       href="{% url 'rock:edit_destination' destination.id %}">Make changes ... </a>
+                       href="{% url 'destination:edit_destination' destination.id %}">Make changes ... </a>
                   {% endif %}
 
                   <br><br>
 
                   <a class="button is-primary is-medium"
-                      href="{% url 'rock:publish_review' destination.id %}">Create a review for this destination ...
+                      href="{% url 'review:publish_review' destination.id %}">Create a review for this destination ...
                   </a>
 
               </div>

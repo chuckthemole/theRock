@@ -26,7 +26,6 @@ comments: {{comments}} <br>
                   <b>Stars</b> <font color="red">{{ review.stars }}</font> <br><br>
                   <b>Review:</b> <font color="red">{{ review.feedback }}</font> <br><br>
 
-
                   {% if comments %}
                     <br><b>Comments:</b><br>
                     <div class="box">
@@ -47,13 +46,14 @@ comments: {{comments}} <br>
                   <!-- Module 6 -->
                   {% if user.id == review.rocker.user.id %}
                     <a class="button is-primary is-medium"
-                       href="{% url 'rock:edit_review' review.id %}">Make changes ... </a>
+                       href="{% url 'review:edit_review' review.id %}">Make changes ... </a>
                   {% endif %}
 
                   <br><br>
                   <!-- Module 9 -->
-                  <a class="button is-primary is-medium"
-                      href="{% url 'rock:publish_comment' review.id %}">Create a comment for this review ... </a>
+                  <a class="button is-primary is-medium" href="{% url 'comment:publish_comment' review.id %}">
+                    Create a comment for this review ...
+                  </a>
 
               </div>
           </div>

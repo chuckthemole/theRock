@@ -10,7 +10,7 @@
              {% if error %}
                 <h3 style="color: red">{{ error }}</h3>
              {% endif %}
-            <form action="{% url 'rock:create_destination' location.id %}" method="post">
+            <form action="{% url 'destination:create_destination' location.id %}" method="post">
             {% csrf_token %}
 
                 <div class="field">
