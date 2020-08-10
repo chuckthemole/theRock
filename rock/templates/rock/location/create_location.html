@@ -8,7 +8,7 @@
       <div class="column" >
         <h1 class="title is-2">
           <span style="color:#1496ed">
-            {{ sport.sport }}
+            {{ user.username }}<br>What sport?
           </span>
         </h1>
         <h4 class="title is-5">Where is the rock located?</h4>
@@ -17,8 +17,17 @@
           <h3 style="color: red">{{ error }}</h3>
         {% endif %}
 
-        <form action="{% url 'location:create_location' sport.id %}" method="post">
+        <form action="{% url 'location:create_location' %}" method="post">
           {% csrf_token %}
+
+          <label>Choose a sport:</label>
+          <select name="sports">
+            <option value="basketball">basketball</option>
+            <option value="baseball">baseball</option>
+            <option value="tennis">tennis</option>
+          </select>
+          <br><br>
+
             <div class="field">
               <div class="control">
                 <label class="label">

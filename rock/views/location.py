@@ -1,69 +1,71 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login, logout
-from pandas import DataFrame
-# Import all the models created so far
-from rock.models import rocker, Sport, Location, Sport_Location, Destination, Review, Comment
-from rock.forms import Sport_Location_Form
-from django import forms
-import googlemaps
-from datetime import datetime
-
-# import User model
-from django.contrib.auth.models import User
+from .imports import *
 
 # Locations
-def publish_location(request, sport_id):
+def publish_location(request):
     if request.method == "GET":
         user = request.user
         if not user.is_authenticated:
             return redirect("rock:login")
         else:
-            sport = get_object_or_404(Sport, pk=sport_id)
-            return render(request, "rock/location/create_location.html", {"user":user, "sport":sport} )
+            return render(request, "rock/location/create_location.html", {"user":user} )
 
-def create_location(request, sport_id):
+def create_location(request):
     if request.method == "POST":
         user = request.user
         if not user.is_authenticated:
             return redirect("rock:login")
 
-        sport = get_object_or_404(Sport, pk=sport_id)
         rocker = user.rocker
-        address = request.POST["address"]
-        zip = request.POST["zip"]
+        sport = request.POST["sports"]
 
-        # Geocoding an address
-        gmaps = googlemaps.Client(key='AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko')
-        geocode_result = gmaps.geocode(address + " " + zip)
-        df = DataFrame (geocode_result)
-        loc = DataFrame (df['geometry'][0])
-        latitude = float(loc['location'][0])
-        longitude = float(loc['location'][1])
+        # Choose sport
+        if sport == "basketball":
+            is_basketball=True
+            is_tennis=False
+            is_baseball=False
+        elif sport == "tennis":
+            is_basketball=False
+            is_tennis=True
+            is_baseball=False
+        elif sport == "baseball":
+            is_basketball=False
+            is_tennis=False
+            is_baseball=True
+        else:
+            print("no choice")
 
-        if not address and not zip:
-            return render(request, "rock/location/create_location.html", {"error":"Please fill in all required fields"})
+        if not sport:
+            return render(request, "rock/location/create_location.html", {"error":"Please choose a sport!"})
 
         try:
-            location = Location.objects.create(latitude=latitude, longitude=longitude, rocker=rocker, address=address, zip=zip, sport=sport)
+            # Geocoding an address
+            address = request.POST["address"]
+            zip = request.POST["zip"]
+            gmaps = googlemaps.Client(key='AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko')
+            geocode_result = gmaps.geocode(address + " " + zip)
+            df = DataFrame (geocode_result)
+            loc = DataFrame (df['geometry'][0])
+            latitude = float(loc['location'][0])
+            longitude = float(loc['location'][1])
+        except:
+            # If address is blank or not found
+            return render(request, "rock/location/create_location.html", {"error":"Error finding address"})
+
+        # Make more requirements for adress inputs
+        if address == "" or len(zip) < 5:
+            return render(request, "rock/location/create_location.html", {"error":"Enter a proper address"})
+
+        try:
+            location = Location.objects.create(
+                latitude=latitude, longitude=longitude,
+                rocker=rocker, address=address, zip=zip,
+                sport=sport, is_basketball=is_basketball,
+                is_tennis=is_tennis, is_baseball=is_baseball)
             location.save()
             location = get_object_or_404(Location, pk=location.id)
-            #sport_location = Sport_Location.objects.create(rocker=rocker, location=location)
-            """
-            # form for uploading image
-            form = Sport_Location_Form(request.POST, request.FILES, instance=location)
-            if form.is_valid():
-                location_img = form.save()
-                return render((request, 'rock/map/show_success_map.html',
-                             {'sport_location' : location_img}))
-            """
-            return render(request, "rock/map/show_map.html",
-                {"longitude":longitude, "latitude":latitude, "user":user, "address":address,
-                "zip":zip, "sport":sport, "location": location, #"form": form,
-                "location": location})
+            return render(request, "rock/location/show_sport.html", {"user":user, "location":location})
         except:
             return render(request, "rock/location/create_location.html", {"error":"Can't create the location"})
-
     else:
         user = request.user
         all_locations = Location.objects.all()
@@ -81,6 +83,41 @@ def show_location(request, location_id):
             destinations = Destination.objects.filter(location=location_id)
 
             return render(request, "rock/location/show_location.html", {"user":user, "location":location, "destinations":destinations})
+
+def publish_image(request, location_id):
+    if request.method == "GET":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+        else:
+            location = get_object_or_404(Location, pk=location_id)
+            form = Sport_Location_Form()
+            return render(request, "rock/location/show_map.html", {"user":user, "location":location, "form":form} )
+
+def create_image(request, location_id):
+    if request.method == "POST":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+        else:
+            location = get_object_or_404(Location, pk=location_id)
+            form = Sport_Location_Form(request.POST, request.FILES, instance=location)
+            if form.is_valid():
+                form.save()
+                print("**********FORM IS VALID*************")
+                return render(request, "rock/location/show_image.html", {"user":user, "location":location} )
+            else:
+                print("**********FORM IS NOT VALID*************")
+                form = Sport_Location_Form()
+
+def show_image(request, location_id):
+    if request.method == "GET":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+        else:
+            location = get_object_or_404(Location, pk=location_id)
+            return render(request, "rock/location/show_image.html", {"user":user, "location":location})
 
 def edit_location(request, location_id):
    if request.method == "GET":

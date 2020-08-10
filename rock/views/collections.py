@@ -1,16 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login, logout
-from pandas import DataFrame
-# Import all the models created so far
-from rock.models import rocker, Sport, Location, Sport_Location, Destination, Review, Comment
-from rock.forms import Sport_Location_Form
-from django import forms
-import googlemaps
-from datetime import datetime
-
-# import User model
-from django.contrib.auth.models import User
+from .imports import *
 
 def index(request):
     # Testing http request object inside a view function

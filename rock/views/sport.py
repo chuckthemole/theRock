@@ -1,13 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login, logout
-from pandas import DataFrame
-# Import all the models created so far
-from rock.models import rocker, Sport, Location, Sport_Location, Destination, Review, Comment
-from rock.forms import Sport_Location_Form
-from django import forms
-import googlemaps
-from datetime import datetime
+from .imports import *
 
 # import User model
 from django.contrib.auth.models import User
@@ -18,6 +9,11 @@ def publish_create_sport(request):
         if not user.is_authenticated:
             return redirect("rock:login")
         else:
+            form = Sport_Location_Form(request.POST, request.FILES)
+
+            if form.is_valid():
+                form.save()
+                return redirect('success')
             return render(request, "rock/sport/create_sport.html", {"user":user} )
 
 def create_sport(request):
@@ -52,7 +48,7 @@ def create_sport(request):
             sport.save()
             sport = get_object_or_404(Sport, pk=sport.id)
             location = Location.objects.filter(sport=sport.id)
-            return render(request, "rock/sport/show_sport.html",{"user":user, "sport":sport})
+            return render(request, "rock/sport/show_map.html",{"user":user, "sport":sport, "location":location})
         except:
             return render(request, "rock/sport/create_sport.html", {"error":"Choose a sport!"})
 

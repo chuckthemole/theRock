@@ -1,0 +1,84 @@
+<!-- index renders a list of all the rock locations in the DB -->
+<!-- should implement a search button at some point -->
+
+{% extends "rock/base.html" %}
+
+{% block content %}
+
+<div class="has-text-centered tile is-ancestor">
+  <div style="margin: auto" class="tile is-8 is-parent">
+    <div class="tile is-child box front-background">
+      <h2 class="title is-2">
+        <span style="color:blue">
+          {{ user.username }}
+        </span>
+        <br>
+          {% if location.sport.sport == 'basketball' %}
+            This is the location of the basketball court
+          {% elif location.sport.sport == 'tennis' %}
+            This is the location of the tennis court
+          {% elif location.sport.sport == 'baseball' %}
+            This is the location of the baseball field
+          {% endif %}
+      </h2>
+      <p>
+        Input: {{location.address}} {{location.zip}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<div class="has-text-centered tile is-ancestor">
+  <div style="margin: auto" class="tile is-8 is-parent">
+    <div class="tile is-child box front-background">
+      <center>
+        <div class="row">
+          <div class="column">
+            <center>
+              <!--Image of Location-->
+              <img src="{{ location.sport_location_img.url }}" alt=" icon" width="50%" height="50%">
+            </center>
+          </div>
+
+          <!-- html map tag -->
+          <div class="column">
+            <center>
+              <div id='map' style='width: 100%; height: 440px;'></div>
+            </center>
+          </div>
+        </div>
+      </center>
+    </div>
+  </div>
+</div>
+
+<script>
+// Initialize and add the map
+function initMap() {
+  // The location of Uluru
+  var uluru = {lat: {{location.latitude}}, lng: {{location.longitude}} };
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 17, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+}
+</script>
+<!--Load the API from the specified URL
+* The async attribute allows the browser to render the page while the API loads
+* The key parameter will contain your own API key (which is not needed for this tutorial)
+* The callback parameter executes the initMap() function
+-->
+<script defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap">
+</script>
+
+<a href="{% url 'location:show_location' location.id %}" class="button is-primary is-medium">
+  Next...
+</a>
+
+{% endblock content %}

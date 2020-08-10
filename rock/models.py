@@ -37,15 +37,22 @@ class Location(models.Model):
 
 	# FK
 	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
-	sport = models.ForeignKey(Sport, on_delete=models.CASCADE, null=True)
 
+	# Sport type
+	sport = models.TextField(max_length=30, null=False, blank=False, unique=False, default="")
+	is_basketball = models.BooleanField(default=False)
+	is_tennis = models.BooleanField(default=False)
+	is_baseball = models.BooleanField(default=False)
+
+	# Location
 	zip = models.TextField(max_length=5, null=False, blank=False, unique=False, default="")
 	address = models.TextField(max_length=30, null=False, blank=False, unique=False, default="")
 	longitude = models.FloatField(null=True, blank=True, default=None)
 	latitude = models.FloatField(null=True, blank=True, default=None)
-	location_img = models.ImageField(upload_to='images/', blank=True)
 
-	#image = models.ImageField(upload_to='myproblems/', blank=True)
+	# Image of location
+	sport_location_img = models.ImageField(upload_to='images/', blank=True)
+
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)     # everytime the obj is saved, new time is saved
 	#is_my_location = models.BooleanField(default=False)
