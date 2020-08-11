@@ -13,17 +13,14 @@
           {{ user.username }}
         </span>
         <br>
-          {% if location.sport.sport == 'basketball' %}
-            This is the location of the basketball court
-          {% elif location.sport.sport == 'tennis' %}
-            This is the location of the tennis court
-          {% elif location.sport.sport == 'baseball' %}
-            This is the location of the baseball field
-          {% endif %}
+        {% if location.sport == 'basketball' %}
+          You added a location for basketball!
+        {% elif location.sport == 'tennis' %}
+          You added a location for tennis!
+        {% elif location.sport == 'baseball' %}
+          You added a location for baseball!
+        {% endif %}
       </h2>
-      <p>
-        Input: {{location.address}} {{location.zip}}
-      </p>
     </div>
   </div>
 </div>
@@ -35,23 +32,48 @@
 <div class="has-text-centered tile is-ancestor">
   <div style="margin: auto" class="tile is-8 is-parent">
     <div class="tile is-child box front-background">
-      <center>
-        <div class="row">
-          <div class="column">
-            <center>
-              <!--Image of Location-->
-              <img src="{{ location.sport_location_img.url }}" alt=" icon" width="50%" height="50%">
-            </center>
-          </div>
-
-          <!-- html map tag -->
-          <div class="column">
-            <center>
-              <div id='map' style='width: 100%; height: 440px;'></div>
-            </center>
+      <div class="has-text-centered tile is-ancestor">
+        <div style="margin: auto" class="tile is-8 is-parent">
+          <div class="tile is-child box alt-front-background">
+            {% if location.sport == 'basketball' %}
+              The location of the basketball court is
+            {% elif location.sport == 'tennis' %}
+              The location of the tennis court is
+            {% elif location.sport == 'baseball' %}
+              The location of the baseball field is
+            {% endif %}
+            <u>{{location.address}} {{location.zip}}</u>
           </div>
         </div>
-      </center>
+      </div>
+
+      <!--location template with image and map-->
+      <div class="columns front-background">
+
+        <div class="column is-half front-background">
+          <div class="has-text-centered tile is-ancestor">
+            <div style="margin: auto" class="tile is-8 is-parent">
+              <div class="tile is-child box alt-front-background">
+                <!--Image of Location-->
+                <img src="{{ location.sport_location_img.url }}" alt=" icon" width="100%" height="100%">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-half front-background">
+          <div class="has-text-centered tile is-ancestor">
+            <div style="margin: auto" class="tile is-8 is-parent">
+              <div class="tile is-child box alt-front-background">
+                <!-- html map tag -->
+                <div id='map' style='width: 95%; height: 300px;'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </div>

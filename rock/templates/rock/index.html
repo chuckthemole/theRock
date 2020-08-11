@@ -22,13 +22,75 @@
 
       <!-- List all destinations -->
       {% for location in all_locations %}
-        <div class="box alt-front-background">
-          <div class="content alt-front-background" align="left">
-            <center>
-              <a class="button is-success is-medium" href="{% url 'location:show_location' location.id %}">
-                {{ location }}
-              </a>
-            </center>
+        <div class="has-text-centered tile is-ancestor">
+          <div style="margin: auto" class="tile is-8 is-parent">
+            <div class="tile is-child box front-background">
+              <div class="has-text-centered tile is-ancestor">
+                <div style="margin: auto" class="tile is-8 is-parent">
+                  <div class="tile is-child box alt-front-background">
+                    {% if location.sport == 'basketball' %}
+                      The location of the basketball court is
+                    {% elif location.sport == 'tennis' %}
+                      The location of the tennis court is
+                    {% elif location.sport == 'baseball' %}
+                      The location of the baseball field is
+                    {% endif %}
+                    <u>{{location.address}} {{location.zip}}</u>
+                  </div>
+                </div>
+              </div>
+
+              <!--location template with image and map-->
+              <div class="columns front-background">
+
+                <div class="column is-half front-background">
+                  <div class="has-text-centered tile is-ancestor">
+                    <div style="margin: auto" class="tile is-8 is-parent">
+                      <div class="tile is-child box alt-front-background">
+                        {% if location.sport_location_img %}
+                        <!--Image of Location-->
+                        <img src="{{ location.sport_location_img.url }}" alt=" icon" width="100%" height="100%">
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column is-half front-background">
+                  <div class="has-text-centered tile is-ancestor">
+                    <div style="margin: auto" class="tile is-8 is-parent">
+                      <div class="tile is-child box alt-front-background">
+                        <!-- html map tag -->
+                        <div id='map' style='width: 100%; height: 150px;'></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <script>
+                // Initialize and add the map
+                function initMap() {
+                  // The location of Uluru
+                  var uluru = {lat: {{location.latitude}}, lng: {{location.longitude}} };
+                  // The map, centered at Uluru
+                  var map = new google.maps.Map(
+                      document.getElementById('map'), {zoom: 17, center: uluru});
+                  // The marker, positioned at Uluru
+                  var marker = new google.maps.Marker({position: uluru, map: map});
+                }
+                </script>
+                <!--Load the API from the specified URL
+                * The async attribute allows the browser to render the page while the API loads
+                * The key parameter will contain your own API key (which is not needed for this tutorial)
+                * The callback parameter executes the initMap() function
+                -->
+                <script defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap">
+                </script>
+
+              </div>
+
+            </div>
           </div>
         </div>
       {% endfor %}
