@@ -1,4 +1,5 @@
 
+//https://developers.google.com/maps/documentation/javascript/overview#maps_map_simple-javascript
 
 function create_map(lat, long, index) {
   var latitude = lat;
