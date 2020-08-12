@@ -25,11 +25,19 @@
         Take a look at the list of rock destinations created by rocker users
       </h4>
 
+
+      {% for location in all_locations %}
+
+      {% endfor %}
+
       <!-- List all locations -->
       {% for location in all_locations %}
+
         <script>
-          create_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
+          load_map_array({{all_locations}});
         </script>
+
+
         <div>index: {{location.id}}</div>
         <div>latitude: {{location.latitude}}</div>
         <div>longitude: {{location.longitude}}</div>
