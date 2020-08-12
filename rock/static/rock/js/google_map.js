@@ -11,7 +11,6 @@ function load_map(latitude, longitude, index) {
     var uluru = {lat: latitude, lng: longitude};
     // The map, centered at Uluru
     var map = new google.maps.Map(document.getElementById(index), {zoom: 17, center: uluru});
-
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: uluru, map: map});
   };

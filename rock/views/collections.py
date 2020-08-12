@@ -15,7 +15,10 @@ def index(request):
             user = request.user
             all_locations = Location.objects.all()   # all_problems is a list object [   ]
 
-            return render(request, "rock/index.html", {"user":user, "all_locations": all_locations})
+            if len(all_locations) != 0:
+                return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "location": all_locations[0]})
+            else:
+                return render(request, "rock/index.html", {"user":user, "all_locations": all_locations})
         else:
             return redirect("rock:login")
     else:
