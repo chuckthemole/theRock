@@ -8,52 +8,70 @@
     <link rel="stylesheet" type="text/css" href="{% static 'rock/bulma-0.8.0/css/stylesChuck.css' %}"/>
 </head>
 
-<div class="columns">
-  <div class="column">
+<div class="no-scroll">
 
-    <h2 class="title is-2">
-      Location added by:
-      <span style="color:blue">
-        {{ location.rocker.user.username }}
-      </span>
-       {% if location.sport == 'basketball' %}
-        Basketball
-       {% elif location.sport == 'tennis' %}
-        Tennis
-       {% elif location.sport == 'baseball' %}
-        Baseball
-       {% endif %}
-       <span style="color:blue">
-         <u>{{location.address}} {{location.zip}}</u>
-      </span>
-    </h2>
-
-    <div class="parent front-background" style='width: 100%; height: 100%;'>
-      <script>
-        //load_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
-        load_map({{location.latitude}}, {{location.longitude}});
-      </script>
-      <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
-
-      <div class="scrollable child inline-block-child alt-front-background" style='width: 25%; height: 550px;'>
-          <article>
-            {% if location.sport_location_img %}
-              <a href="{% url 'location:show_location' location.id %}">
-                <!--Image of Location-->
-                <img src="{{ location.sport_location_img.url }}" alt="Image not found"
-                onerror="this.onerror=null;this.src='{% static 'rock/images/bball.PNG' %}';"
-                width="100%" height="100%">
-              </a>
-            {% endif %}
-          </article><br>
+<br><br><br>
+  <div style="margin: auto;">
+    <center>
+      <div class="box front-background tile is-8 is-vertical">
+        <div class="tile is-ancestor">
+          <div class="tile is-vertical has-text-centered alt-front-backgroud">
+            <h1 class="title is-2">
+              Location added by:
+              <span style="color:blue">
+                {{ location.rocker.user.username }}
+              </span>
+            </h1>
+            <h2>
+               {% if location.sport == 'basketball' %}
+                Basketball court at
+               {% elif location.sport == 'tennis' %}
+                Tennis court at
+               {% elif location.sport == 'baseball' %}
+                Baseball field at
+               {% endif %}
+               <span style="color:blue">
+                 <u> {{location.address}} {{location.zip}}</u>
+              </span>
+            </h2>
+          </div>
+        </div>
+        <br><br><br>
       </div>
+    </center>
+  </div>
+
+  <div class="columns">
+    <div class="column">
+      <div class="parent main-background" style='width: 100%; height: 100%;'>
+        <script>
+          //load_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
+          load_map({{location.latitude}}, {{location.longitude}});
+        </script>
+        <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
+
+        <div class="scrollable child inline-block-child main-background" style='width: 28%; height: 550px;'>
+            <article>
+              {% if location.sport_location_img %}
+                <a href="{% url 'location:show_location' location.id %}">
+                  <!--Image of Location-->
+                  <img src="{{ location.sport_location_img.url }}" alt="Image not found"
+                  onerror="this.onerror=null;this.src='{% static 'rock/images/bball.PNG' %}';"
+                  width="100%" height="100%">
+                </a>
+              {% endif %}
+            </article><br>
+        </div>
+        {% if user.id == location.rocker.user.id %}
+          <a class="button is-primary is-medium" href="{% url 'location:edit_location' location.id %}">
+            Make changes ...
+          </a>
+          {% endif %}
+      </div>
+
     </div>
+  </div>
 
-
-    {% if user.id == location.rocker.user.id %}
-    <a class="button is-primary is-medium" href="{% url 'location:edit_location' location.id %}">
-      Make changes ...
-    </a>
-    {% endif %}
+</div>
 
 {% endblock content %}

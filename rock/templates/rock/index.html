@@ -12,58 +12,61 @@
 
 <div class="no-scroll">
 
+<br><br><br>
+  <div style="margin: auto;">
+    <center>
+      <div class="box front-background tile is-8 is-vertical">
+        <div class="tile is-ancestor">
+          <div class="tile is-vertical has-text-centered alt-front-backgroud">
+            <h1><br></h1>
+            <h2 class="title is-3">
+              <span style="color:#1496ed">
+                {% if user %}
+                  {{ user.username }},
+                {% endif %}
+              </span>
+              welcome to rocker.
+            </h2>
+            <h4 class="title is-5" style="color:#1496ed">
+              Take a look at the list of rock destinations created by rocker users
+            </h4>
+          </div>
+        </div>
+        <br><br><br>
+      </div>
+    </center>
+  </div>
+
   <div class="margin: auto">
     <div class="tile is-ancestor">
       <div class="tile is-vertical">
 
-        <!--Header to welcome user-->
-        <div class="tile is-parent">
-          <div class="has-text-centered tile is-ancestor">
-            <div class="tile is-child box front-background">
-              <h1 class="title is-2">
-                Hello
-                <span style="color:#1496ed">
-                  {{ user.username }}
-                </span>
-              </h1>
-              <h2 class="title is-3">
-                Welcome to rocker.
-              </h2>
-              <h4 class="title is-5" style="color:#1496ed">
-                Take a look at the list of rock destinations created by rocker users
-              </h4>
-            </div>
+        <div class="parent main-background" style='width: 100%; height: 100%;'>
+          <script>
+            //load_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
+            load_map_multiple_markers({{coordinates}});
+          </script>
+          <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
+
+          <div class="scrollable child inline-block-child main-background border" style='width: 29%; height: 550px;'>
+            {% for l in all_locations %}
+              <article>
+                {% if l.sport_location_img %}
+                  <a href="{% url 'location:show_location' l.id %}">
+                    <!--Image of Location-->
+                    <img src="{{ l.sport_location_img.url }}" alt="Image not found"
+                    onerror="this.onerror=null;this.src='{% static 'rock/images/bball.PNG' %}';"
+                    width="100%" height="100%">
+                  </a>
+                {% endif %}
+              </article><br>
+            {% endfor %}
           </div>
         </div>
+
       </div>
     </div>
   </div>
-
-  <br><br><br>
-
-  <div class="parent front-background" style='width: 100%; height: 100%;'>
-    <script>
-      //load_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
-      load_map_multiple_markers({{coordinates}});
-    </script>
-    <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
-
-    <div class="scrollable child inline-block-child alt-front-background" style='width: 25%; height: 550px;'>
-      {% for l in all_locations %}
-        <article>
-          {% if l.sport_location_img %}
-            <a href="{% url 'location:show_location' l.id %}">
-              <!--Image of Location-->
-              <img src="{{ l.sport_location_img.url }}" alt="Image not found"
-              onerror="this.onerror=null;this.src='{% static 'rock/images/bball.PNG' %}';"
-              width="100%" height="100%">
-            </a>
-          {% endif %}
-        </article><br>
-      {% endfor %}
-    </div>
-  </div>
-
 </div>
 
 {% endblock content %}

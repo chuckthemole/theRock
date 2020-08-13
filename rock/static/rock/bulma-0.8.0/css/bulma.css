@@ -6391,6 +6391,7 @@ a.list-item {
   min-height: 3.25rem;
   position: relative;
   z-index: 30;
+  overflow: hidden;
 }
 
 .navbar.is-white {

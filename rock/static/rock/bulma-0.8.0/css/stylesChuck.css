@@ -95,3 +95,13 @@ html, body, {
 .inline-block-child {
   display: inline-block;
 }
+
+.border {
+  border-style: solid;
+   border-width: medium;
+   border-color: #9AD1EF;
+ }
+
+#rounded {
+  border-radius=70px;
+}
