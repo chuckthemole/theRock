@@ -15,8 +15,12 @@ def index(request):
             user = request.user
             all_locations = Location.objects.all()   # all_problems is a list object [   ]
 
+            coordinates = []
+            for location in all_locations:
+                coordinates.append([location.latitude, location.longitude])
+
             if len(all_locations) != 0:
-                return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "location": all_locations[0]})
+                return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "coordinates": coordinates, "location": all_locations[0]})
             else:
                 return render(request, "rock/index.html", {"user":user, "all_locations": all_locations})
         else:

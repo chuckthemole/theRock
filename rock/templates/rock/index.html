@@ -43,16 +43,21 @@
 
   <div class="parent front-background" style='width: 100%; height: 100%;'>
     <script>
-      load_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
+      //load_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
+      load_map_multiple_markers({{coordinates}});
     </script>
-    <div class='child inline-block-child' id='{{location.id}}' style='width: 70%; height: 550px;'></div>
+    <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
 
     <div class="scrollable child inline-block-child alt-front-background" style='width: 25%; height: 550px;'>
       {% for l in all_locations %}
         <article>
-          {% if location.sport_location_img %}
-            <!--Image of Location-->
-            <img src="{{ l.sport_location_img.url }}" alt="Image not found" onerror="this.onerror=null;this.src='{% static 'rock/images/bball.PNG' %}';" width="100%" height="100%">
+          {% if l.sport_location_img %}
+            <a href="{% url 'location:show_location' l.id %}">
+              <!--Image of Location-->
+              <img src="{{ l.sport_location_img.url }}" alt="Image not found"
+              onerror="this.onerror=null;this.src='{% static 'rock/images/bball.PNG' %}';"
+              width="100%" height="100%">
+            </a>
           {% endif %}
         </article><br>
       {% endfor %}
