@@ -25,10 +25,14 @@
                   {{ user.username }},
                 {% endif %}
               </span>
-              welcome to rocker.
+              <span style="color:white;">
+                welcome to rocker.
+              </span>
             </h2>
             <h4 class="title is-5" style="color:#1496ed">
-              Take a look at the list of rock destinations created by rocker users
+              <span style="color:white;">
+                Take a look at the list of rock destinations created by rocker users
+              </span>
             </h4>
           </div>
         </div>
@@ -55,7 +59,7 @@
                   <a href="{% url 'location:show_location' l.id %}">
                     <!--Image of Location-->
                     <img src="{{ l.sport_location_img.url }}" alt="Image not found"
-                    onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
+                    onerror="this.onerror=null;this.src='{% static 'rock/images/no_image.PNG' %}';"
                     width="100%" height="100%">
                   </a>
                 {% endif %}
