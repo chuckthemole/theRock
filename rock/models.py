@@ -51,7 +51,7 @@ class Location(models.Model):
 	latitude = models.FloatField(null=True, blank=True, default=None)
 
 	# Image of location
-	sport_location_img = models.ImageField(upload_to='images/', blank=True, default="{% static 'rock/images/bball.PNG' %}")
+	sport_location_img = models.ImageField(upload_to='images/', blank=True, default="static/rock/images/no_image_available.PNG")
 
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)     # everytime the obj is saved, new time is saved

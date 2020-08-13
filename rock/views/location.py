@@ -57,6 +57,7 @@ def create_location(request):
 
         try:
             location = Location.objects.create(
+                sport_location_img='images/no_image_available.PNG',
                 latitude=latitude, longitude=longitude,
                 rocker=rocker, address=address, zip=zip,
                 sport=sport, is_basketball=is_basketball,
@@ -104,10 +105,8 @@ def create_image(request, location_id):
             form = Sport_Location_Form(request.POST, request.FILES, instance=location)
             if form.is_valid():
                 form.save()
-                print("**********FORM IS VALID*************")
                 return render(request, "rock/location/show_image.html", {"user":user, "location":location} )
             else:
-                print("**********FORM IS NOT VALID*************")
                 form = Sport_Location_Form()
 
 def show_image(request, location_id):
