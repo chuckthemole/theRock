@@ -88,7 +88,7 @@ html, body, {
 }
 
 .child {
-  border: 1px solid indigo;
+  /*border: 1px solid indigo;*/
   padding: 1rem;
 }
 
