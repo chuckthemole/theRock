@@ -4,15 +4,22 @@
 
 {% block content %}
   <div class="columns is-centered">
-    <div class="publish-form columns alt-front-background panel-block">
-      <div class="column" >
+    <div class="publish-form columns main-background panel-block">
+      <div class="column box front-background" >
         <h1 class="title is-2">
           <span style="color:#1496ed">
-            {{ user.username }}<br>What sport?
+            {{ user.username }}
+            <br>
+            <span style="color:white;">
+              What sport?
+            </span>
           </span>
         </h1>
-        <h4 class="title is-5">Where is the rock located?</h4>
-
+        <h4 class="title is-5">
+          <span style="color:white;">
+            Where is the rock located?
+          </span>
+        </h4>
         {% if error %}
           <h3 style="color: red">{{ error }}</h3>
         {% endif %}
@@ -20,7 +27,9 @@
         <form action="{% url 'location:create_location' %}" method="post">
           {% csrf_token %}
 
-          <label>Choose a sport:</label>
+          <span style="color:white;">
+            <label>Choose a sport:</label>
+          </span>
           <select name="sports">
             <option value="basketball">basketball</option>
             <option value="baseball">baseball</option>
@@ -31,7 +40,7 @@
             <div class="field">
               <div class="control">
                 <label class="label">
-                  *Address
+                  <span style="color:red;">*</span><span style="color:white;">Address</span>
                 </label>
                 <input class="input is-primary" placeholder="123 Cool Court Drive" type="text" name="address">
               </div>
@@ -40,7 +49,7 @@
             <div class="field">
               <div class="control">
                 <label class="label">
-                  *Zip Code
+                  <span style="color:red;">*</span><span style="color:white;">Zip</span>
                 </label>
                 <input class="input is-primary" placeholder="42069" name="zip">
                 </input>
@@ -65,7 +74,7 @@
 
             <div class="field">
               <div class="control">
-                <button class="button is-success is-outlined is-fullwidth" type="submit" value="Publish">
+                <button class="button is-success is-fullwidth" type="submit" value="Publish">
                   Publish
                 </button>&nbsp;
               </div>
