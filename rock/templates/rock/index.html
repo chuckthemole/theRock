@@ -59,7 +59,7 @@
                   <a href="{% url 'location:show_location' l.id %}">
                     <!--Image of Location-->
                     <img src="{{ l.sport_location_img.url }}" alt="Image not found"
-                    onerror="this.onerror=null;this.src='{% static 'rock/images/no_image.PNG' %}';"
+                    onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
                     width="100%" height="100%">
                   </a>
                 {% endif %}
