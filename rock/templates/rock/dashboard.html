@@ -17,11 +17,18 @@
 <div class="has-text-centered tile is-ancestor is-5" style="margin: auto"
   <div class="tile is-8 is-parent">
     <div class="tile is-child box front-background">
-      <h1 class="title is-2"> Hello <span style="color:#1496ed">
-        {{ user.username }}</span>
+      <h1 class="title is-2">
+        <span style="color:white;">
+          Hello
+        </span>
+        <span style="color:#1496ed">
+          {{ user.username }}
+        </span>
       </h1>
       <h4 class="title is-5">
-        Your locations are listed below
+        <span style="color:white;">
+          Your locations are listed below
+        </span>
       </h4>
       <a class="button is-info is-medium" href="{% url 'location:publish_location' %}">
         Make a new location

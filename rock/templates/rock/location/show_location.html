@@ -17,21 +17,25 @@
         <div class="tile is-ancestor">
           <div class="tile is-vertical has-text-centered alt-front-backgroud">
             <h1 class="title is-2">
-              Location added by:
+              <span style="color:white;">
+                Location added by:
+              </span>
               <span style="color:blue">
                 {{ location.rocker.user.username }}
               </span>
             </h1>
             <h2>
-               {% if location.sport == 'basketball' %}
-                Basketball court at
-               {% elif location.sport == 'tennis' %}
-                Tennis court at
-               {% elif location.sport == 'baseball' %}
-                Baseball field at
-               {% endif %}
-               <span style="color:blue">
-                 <u> {{location.address}} {{location.zip}}</u>
+              <span style="color:white;">
+                {% if location.sport == 'basketball' %}
+                  Basketball court at
+                {% elif location.sport == 'tennis' %}
+                  Tennis court at
+                {% elif location.sport == 'baseball' %}
+                  Baseball field at
+                {% endif %}
+              </span>
+              <span style="color:blue">
+                <u> {{location.address}} {{location.zip}}</u>
               </span>
             </h2>
           </div>
