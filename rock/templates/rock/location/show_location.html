@@ -50,7 +50,18 @@
       <div class="parent main-background" style='width: 100%; height: 100%;'>
         <script>
           //load_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
-          load_map({{location.latitude}}, {{location.longitude}});
+
+          if ('{{location.sport}}'.localeCompare("basketball") == 0) {
+            load_map_basketball({{location.latitude}}, {{location.longitude}});
+          }
+          else if ('{{location.sport}}'.localeCompare("baseball") == 0) {
+            load_map_baseball({{location.latitude}}, {{location.longitude}});
+          }
+          else if ('{{location.sport}}'.localeCompare("tennis") == 0) {
+            load_map_tennis({{location.latitude}}, {{location.longitude}});
+          }
+          else {}
+
         </script>
         <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
 
