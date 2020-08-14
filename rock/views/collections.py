@@ -20,7 +20,8 @@ def index(request):
                 coordinates.append([location.latitude, location.longitude])
 
             if len(all_locations) != 0:
-                return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "coordinates": coordinates, "location": all_locations[0]})
+                return render(request, "rock/index.html", {"user":user, "all_locations": all_locations,
+                    "coordinates": coordinates, "location": all_locations[0]})
             else:
                 return render(request, "rock/index.html", {"user":user, "all_locations": all_locations})
         else:

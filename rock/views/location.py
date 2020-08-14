@@ -174,7 +174,7 @@ def delete_location(request, location_id):
 
         if location.rocker.user.id == user.id:
             Location.objects.get(pk=location_id).delete()
-            return redirect("rock:dashboard")
+            return redirect("collections:dashboard")
         else:
             all_locations = Location.objects.all()
             return render(request, "rock/index.html", {"user":user, "all_locations": all_locations, "error":"Can't delete!"})

@@ -102,6 +102,10 @@ html, body, {
    border-color: #9AD1EF;
  }
 
+ .container-img { position: relative; }
+ .container-img img { display: block; }
+ .container-img .icon { position: absolute; bottom:0; left:0; }
+
 #rounded {
   border-radius=70px;
 }

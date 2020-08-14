@@ -101,10 +101,10 @@ function load_map_tennis(latitude, longitude) {
   //google.maps.event.addDomListener(window, 'load', initialize);
 
   // Append the 'script' element to 'head'
-  document.head.appendChild(script);
+  document.head.appendChild(script, locations);
 }
 
-function load_map_multiple_markers(coordinates) {
+function load_map_multiple_markers(coordinates, sports) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
   script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
@@ -113,25 +113,37 @@ function load_map_multiple_markers(coordinates) {
   window.initMap = function() {
     var uluru = {lat: coordinates[0][0], lng: coordinates[0][1]};
     var map = new google.maps.Map(document.getElementById("map"), {zoom: 17, center: uluru});
-    var marker = [];
-    var main_marker = [];
+    var marker;
+    var main_marker;
     var i;
 
     for (i = 0; i < coordinates.length; i++) {
-      marker[i] = new google.maps.Marker({
+      marker = new google.maps.Marker({
         position: new google.maps.LatLng(coordinates[i][0], coordinates[i][1]),
         map: map
       });
-      main_marker[i] = marker[i].getIcon();
+      
+      if (sports[i] == 'basketball') {
+        marker.setIcon('https://img.icons8.com/doodle/48/000000/basketball--v1.png');
+      }
+      else if (sports[i] == 'baseball') {
+        marker.setIcon('https://img.icons8.com/dusk/64/000000/baseball.png');
+      }
+      else if (sports[i] == 'tennis') {
+        marker.setIcon('https://img.icons8.com/dusk/64/000000/tennis.png');
+      }
+      else {}
 
-      marker[i].addListener('mouseover', function() {
+      main_marker = marker.getIcon();
+
+      marker.addListener('mouseover', function() {
         //map.setZoom(8);
         //map.setCenter(marker.getPosition());
 
-        marker[i].setIcon('https://img.icons8.com/doodle/48/000000/basketball--v1.png');
+        marker.setIcon(main_marker);
       });
-      marker[i].addListener('mouseout', function() {
-        marker[i].setIcon(main_marker[i]);
+      marker.addListener('mouseout', function() {
+        marker.setIcon(main_marker);
       });
 
 //        google.maps.event.addListener(marker[i], 'click', (function(marker[i], i) {
