@@ -1,7 +1,12 @@
+import os
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.dispatch import receiver
+from django.utils.translation import ugettext_lazy as _
 
 class rocker(models.Model):
 	def __str__(self):
@@ -113,3 +118,33 @@ class Comment(models.Model):
 
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)
+
+@receiver(models.signals.post_delete, sender=Location)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `MediaFile` object is deleted.
+    """
+    if instance.sport_location_img:
+        if os.path.isfile(instance.sport_location_img.path):
+            os.remove(instance.sport_location_img.path)
+
+@receiver(models.signals.pre_save, sender=Location)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes old file from filesystem
+    when corresponding `MediaFile` object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = Location.objects.get(pk=instance.pk).sport_location_img
+    except Location.DoesNotExist:
+        return False
+
+    new_file = instance.sport_location_img
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
