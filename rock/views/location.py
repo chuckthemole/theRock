@@ -105,7 +105,7 @@ def create_image(request, location_id):
             form = Sport_Location_Form(request.POST, request.FILES, instance=location)
             if form.is_valid():
                 form.save()
-                return render(request, "rock/location/show_image.html", {"user":user, "location":location} )
+                return render(request, "rock/location/show_location.html", {"user":user, "location":location} )
             else:
                 form = Sport_Location_Form()
 
