@@ -101,13 +101,24 @@ def create_image(request, location_id):
         if not user.is_authenticated:
             return redirect("rock:login")
         else:
-            location = get_object_or_404(Location, pk=location_id)
-            form = Sport_Location_Form(request.POST, request.FILES, instance=location)
+            try:
+                location = get_object_or_404(Location, pk=location_id)
+                form = Sport_Location_Form(request.POST, request.FILES, instance=location)
+            except:
+                return render(request, "rock/location/show_map.html", {"error":"Error"})
             if form.is_valid():
                 form.save()
                 return render(request, "rock/location/show_location.html", {"user":user, "location":location} )
             else:
                 form = Sport_Location_Form()
+                return render(request, "rock/location/show_map.html", {"error":"Error"})
+    else:
+        if request.user.is_authenticated:
+            user = request.user
+            location = get_object_or_404(Location, pk=location_id)
+            return render(request, "rock/location/show_location.html", {"user":user, "location":location})
+        else:
+            return redirect("rock:login")
 
 def show_image(request, location_id):
     if request.method == "GET":
