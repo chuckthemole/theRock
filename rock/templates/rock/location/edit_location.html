@@ -36,151 +36,146 @@
 
 <br>
 
-<div class="parent columns is-centered col">
-  <div class="child inline-block-child">
-    <div class="columns">
-      <div class="publish-form columns main-background panel-block">
-        <div class="column box front-background" >
+<center>
+  <div class="parent columns is-centered col-container">
+    <div class="child inline-block-child">
+      <div class="columns">
+        <div class="publish-form columns main-background panel-block">
+          <div class="column box front-background col" >
 
-         <h4 class="title is-5">
-           <span style="color:white;">
-             Update your Location's <span style="color:red;">address</span>
-           </span>
-         </h4>
+           <h4 class="title is-5">
+             <span style="color:white;">
+               Update your Location's <span style="color:red;">address</span>
+             </span>
+           </h4>
 
-         <form action="{% url 'location:update_location' location.id %}" method="post">
-           {% csrf_token %}
-           <div class="field">
-             <div class="control">
-               <label class="label">
-                 <span style="color:white;">
-                   New address
-                 </span>
-               </label>
-               <input class="input is-primary" placeholder="123 Cool Court Drive" type="text" name="address">
-             </div>
-           </div>
-
-           <div class="field">
-             <div class="control">
-               <label class="label">
-                 <span style="color:white;">
-                   New Zip
-                 </span>
-               </label>
-               <input class="input is-primary" placeholder="42069" name="zip">
-             </div>
-           </div>
-
-           <br><br><br>
-
-           <div class="field">
+           <form action="{% url 'location:update_location' location.id %}" method="post">
+             {% csrf_token %}
+             <div class="field">
                <div class="control">
-                 <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
-                   Update
-                 </button>&nbsp;
+                 <label class="label">
+                   <span style="color:white;">
+                     New address
+                   </span>
+                 </label>
+                 <input class="input is-primary" placeholder="123 Cool Court Drive" type="text" name="address">
                </div>
-           </div>
+             </div>
 
-         </form>
+             <div class="field">
+               <div class="control">
+                 <label class="label">
+                   <span style="color:white;">
+                     New Zip
+                   </span>
+                 </label>
+                 <input class="input is-primary" placeholder="42069" name="zip">
+               </div>
+             </div>
+
+             <br><br><br>
+
+             <div class="field">
+                 <div class="control">
+                   <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
+                     Update
+                   </button>&nbsp;
+                 </div>
+             </div>
+
+           </form>
+          </div>
+
         </div>
-
       </div>
-    </div>
-   </div>
+     </div>
 
-   <div class="child inline-block-child col">
-    <div class="columns">
-      <div class="publish-form columns main-background panel-block">
-        <div class="column box front-background">
+     <div class="child inline-block-child">
+      <div class="columns">
+        <div class="publish-form columns panel-block">
+          <div class="column box front-background col">
 
-          <h4 class="title is-5">
-            <span style="color:white;">
-              Update your Location's <span style="color:red;">sport</span>
-            </span>
-          </h4>
+            <h4 class="title is-5">
+              <span style="color:white;">
+                Update your Location's <span style="color:red;">sport</span>
+              </span>
+            </h4>
 
-          <form action="{% url 'location:update_location' location.id %}" method="post">
-            {% csrf_token %}
-            <span style="color:white;">
-              <label>Choose a sport:</label>
-            </span>
-            <select name="sports">
-              <option value="basketball">basketball</option>
-              <option value="baseball">baseball</option>
-              <option value="tennis">tennis</option>
-            </select>
+            <form action="{% url 'location:update_location' location.id %}" method="post">
+              {% csrf_token %}
+              <span style="color:white;">
+                <label>Choose a sport:</label>
+              </span>
+              <select name="sports">
+                <option value="basketball">basketball</option>
+                <option value="baseball">baseball</option>
+                <option value="tennis">tennis</option>
+              </select>
 
-            <br><br><br><br>
-            <label>Current Sport:</label>
-            {% if location.sport == 'basketball' %}
-              <img src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">
-            {% elif location.sport == 'baseball' %}
-              <img src='https://img.icons8.com/dusk/64/000000/baseball.png'>
-            {% elif location.sport == 'tennis' %}
-              <img src='https://img.icons8.com/dusk/64/000000/tennis.png'>
-            {% endif %}
+              <br><br><br><br>
+              <label><span style="color:white;">Current Sport:</span></label>
+              {% if location.sport == 'basketball' %}
+                <img src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">
+              {% elif location.sport == 'baseball' %}
+                <img src='https://img.icons8.com/dusk/64/000000/baseball.png'>
+              {% elif location.sport == 'tennis' %}
+                <img src='https://img.icons8.com/dusk/64/000000/tennis.png'>
+              {% endif %}
 
-            <br><br><br><br>
+              <br><br><br><br><br>
 
-            <div class="field">
-              <div class="control">
-                <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
-                  Update
-                </button>&nbsp;
+              <div class="field">
+                <div class="control">
+                  <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
+                    Update
+                  </button>&nbsp;
+                </div>
               </div>
-            </div>
 
-          </form>
+            </form>
+         </div>
        </div>
      </div>
-   </div>
-  </div>
-
-  <div class="child inline-block-child col">
-    <div class="columns">
-      <div class="publish-form columns main-background panel-block">
-        <div class="column box front-background" >
-
-         <h4 class="title is-5">
-           <span style="color:white;">
-             Update your Location's <span style="color:red;">image</span>
-           </span>
-         </h4>
-
-         <form action="{% url 'location:create_image' location.id %}" method = "post" enctype="multipart/form-data">
-           {% csrf_token %}
-           {{ form.as_p }}
-
-           <br>
-
-           <div style="max-width: 60px;  max-width: 60px; min-width: 60px;  min-width: 60px;">
-             {% if location.sport_location_img %}
-               <!--Image of Location-->
-               <img src="{{ location.sport_location_img.url }}" alt="Image not found"
-                 onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
-                 max-width="100%" max-height="100%">
-             {% endif %}
-           </div>
-
-           <br><br><br><br><br>
-
-           <div class="field">
-               <div class="control">
-                 <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
-                   Update
-                 </button>&nbsp;
-               </div>
-           </div>
-
-         </form>
-        </div>
-
-      </div>
     </div>
-   </div>
 
-</div>
+    <div class="child inline-block-child">
+      <div class="columns">
+        <div class="publish-form columns panel-block">
+          <div class="column box front-background col" >
+
+           <h4 class="title is-5">
+             <span style="color:white;">
+               Update your Location's <span style="color:red;">image</span>
+             </span>
+           </h4>
+
+           <form action="{% url 'location:create_image' location.id %}" method = "post" enctype="multipart/form-data">
+             {% csrf_token %}
+             {{ form.as_p }}
+
+             <br><br><br><br><br><br>         <br><br><br>
+
+
+             <div class="field">
+                 <div class="control">
+                   <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
+                     Update
+                   </button>&nbsp;
+                 </div>
+             </div>
+           </form>
+
+
+          </div>
+
+        </div>
+      </div>
+     </div>
+
+  </div>
+</center>
+
+<br><br>
 
 <div style="margin: auto;">
   <center>

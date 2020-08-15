@@ -106,11 +106,18 @@ html, body, {
  .container-img img { display: block; }
  .container-img .icon { position: absolute; bottom:0; left:0; }
 
- .col {
-     display: table-cell;
-     vertical-align: top:
- }
- 
+/* Make columns same height*/
+ .col-container {
+    display: table;
+    width: 100%;
+}
+
+.col {
+    padding: 5px 10px 5px 10px;
+    display: table-cell;
+    vertical-align: top:
+}
+
 #rounded {
   border-radius=70px;
 }
