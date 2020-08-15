@@ -88,8 +88,8 @@ function load_map_tennis(latitude, longitude) {
     marker.addListener('mouseover', function() {
       //map.setZoom(8);
       //map.setCenter(marker.getPosition());
-      marker.setIcon('https://img.icons8.com/dusk/64/000000/tennis.png');
 
+      marker.setIcon('https://img.icons8.com/dusk/64/000000/tennis.png');
       //marker.setIcon('https://img.icons8.com/doodle/48/000000/basketball--v1.png');
 
     });
@@ -101,7 +101,7 @@ function load_map_tennis(latitude, longitude) {
   //google.maps.event.addDomListener(window, 'load', initialize);
 
   // Append the 'script' element to 'head'
-  document.head.appendChild(script, locations);
+  document.head.appendChild(script);
 }
 
 function load_map_multiple_markers(coordinates, sports) {
@@ -122,7 +122,7 @@ function load_map_multiple_markers(coordinates, sports) {
         position: new google.maps.LatLng(coordinates[i][0], coordinates[i][1]),
         map: map
       });
-      
+
       if (sports[i] == 'basketball') {
         marker.setIcon('https://img.icons8.com/doodle/48/000000/basketball--v1.png');
       }

@@ -1,54 +1,208 @@
 {% extends "rock/base.html" %}
 {% block content %}
 
-<div class="columns">
-   <div class="column is-one-fifth">
+<head>
+    {% load static %}
+    <script type='text/javascript' src="{% static 'rock/js/google_map.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'rock/bulma-0.8.0/css/stylesChuck.css' %}"/>
+</head>
+
+<div style="margin: auto;">
+  <center>
+    <div class="box front-background tile is-8 is-vertical">
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical has-text-centered alt-front-backgroud">
+          <h2 class="title is-3">
+            <span style="color:#1496ed">
+              {% if user %}
+                {{ user.username }},
+              {% endif %}
+            </span>
+            <span style="color:white;">
+              edit your location.
+            </span>
+          </h2>
+          <h4 class="title is-5" style="color:#1496ed">
+            <span style="color:white;">
+              {{location.address}} {{location.zip}}
+            </span>
+          </h4>
+        </div>
+      </div>
+      <br><br><br>
+    </div>
+  </center>
+</div>
+
+<br>
+
+<div class="parent columns is-centered col">
+  <div class="child inline-block-child">
+    <div class="columns">
+      <div class="publish-form columns main-background panel-block">
+        <div class="column box front-background" >
+
+         <h4 class="title is-5">
+           <span style="color:white;">
+             Update your Location's <span style="color:red;">address</span>
+           </span>
+         </h4>
+
+         <form action="{% url 'location:update_location' location.id %}" method="post">
+           {% csrf_token %}
+           <div class="field">
+             <div class="control">
+               <label class="label">
+                 <span style="color:white;">
+                   New address
+                 </span>
+               </label>
+               <input class="input is-primary" placeholder="123 Cool Court Drive" type="text" name="address">
+             </div>
+           </div>
+
+           <div class="field">
+             <div class="control">
+               <label class="label">
+                 <span style="color:white;">
+                   New Zip
+                 </span>
+               </label>
+               <input class="input is-primary" placeholder="42069" name="zip">
+             </div>
+           </div>
+
+           <br><br><br>
+
+           <div class="field">
+               <div class="control">
+                 <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
+                   Update
+                 </button>&nbsp;
+               </div>
+           </div>
+
+         </form>
+        </div>
+
+      </div>
+    </div>
    </div>
 
-   <div class="column" >
+   <div class="child inline-block-child col">
+    <div class="columns">
+      <div class="publish-form columns main-background panel-block">
+        <div class="column box front-background">
 
-     <h4 class="title is-5"> Update your created Location</h4>
+          <h4 class="title is-5">
+            <span style="color:white;">
+              Update your Location's <span style="color:red;">sport</span>
+            </span>
+          </h4>
 
-     <form action="{% url 'location:update_location' location.id %}" method="post">
-       {% csrf_token %}
+          <form action="{% url 'location:update_location' location.id %}" method="post">
+            {% csrf_token %}
+            <span style="color:white;">
+              <label>Choose a sport:</label>
+            </span>
+            <select name="sports">
+              <option value="basketball">basketball</option>
+              <option value="baseball">baseball</option>
+              <option value="tennis">tennis</option>
+            </select>
 
-       <div class="field">
-         <div class="control">
-           <label class="label">New Country Name</label>
-           <input class="input is-primary" value="{{ location.country }}" type="text" name="country">
-         </div>
+            <br><br><br><br>
+            <label>Current Sport:</label>
+            {% if location.sport == 'basketball' %}
+              <img src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">
+            {% elif location.sport == 'baseball' %}
+              <img src='https://img.icons8.com/dusk/64/000000/baseball.png'>
+            {% elif location.sport == 'tennis' %}
+              <img src='https://img.icons8.com/dusk/64/000000/tennis.png'>
+            {% endif %}
+
+            <br><br><br><br>
+
+            <div class="field">
+              <div class="control">
+                <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
+                  Update
+                </button>&nbsp;
+              </div>
+            </div>
+
+          </form>
        </div>
+     </div>
+   </div>
+  </div>
 
-       <div class="field">
-         <div class="control">
-           <label class="label">New City Name</label>
-           <input class="input is-primary" value="{{ location.city }}" type="text" name="city">
-         </div>
-       </div>
+  <div class="child inline-block-child col">
+    <div class="columns">
+      <div class="publish-form columns main-background panel-block">
+        <div class="column box front-background" >
 
-       <br><br><br>
+         <h4 class="title is-5">
+           <span style="color:white;">
+             Update your Location's <span style="color:red;">image</span>
+           </span>
+         </h4>
 
-       <div class="field">
-           <div class="control">
-             <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
-               Update
-             </button>&nbsp;
-           </div>
-       </div>
-
-       </form>
-
-       <h3 class="title is-5">Delete This Location? </h3>
-       <form action="{% url 'location:delete_location' location.id %}" method="post">
+         <form action="{% url 'location:create_image' location.id %}" method = "post" enctype="multipart/form-data">
            {% csrf_token %}
-            <button class="button is-danger is-outlined is-fullwidth" type="submit" name="delete" value="Delete">
-              Delete
-            </button>&nbsp;
+           {{ form.as_p }}
 
-       </form>
+           <br>
+
+           <div style="max-width: 60px;  max-width: 60px; min-width: 60px;  min-width: 60px;">
+             {% if location.sport_location_img %}
+               <!--Image of Location-->
+               <img src="{{ location.sport_location_img.url }}" alt="Image not found"
+                 onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
+                 max-width="100%" max-height="100%">
+             {% endif %}
+           </div>
+
+           <br><br><br><br><br>
+
+           <div class="field">
+               <div class="control">
+                 <button class="button is-success is-outlined is-fullwidth" type="submit" value="Update">
+                   Update
+                 </button>&nbsp;
+               </div>
+           </div>
+
+         </form>
+        </div>
+
+      </div>
+    </div>
+   </div>
 
 </div>
-<div class="column ">
+
+<div style="margin: auto;">
+  <center>
+    <div class="box front-background tile is-8 is-vertical">
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical has-text-centered alt-front-backgroud">
+          <h2 class="title is-3">
+            <span style="color:white;">
+              Delete your location
+            </span>
+          </h2>
+          <form action="{% url 'location:delete_location' location.id %}" method="post">
+              {% csrf_token %}
+               <button class="button is-danger is-outlined is-fullwidth" type="submit" name="delete" value="Delete">
+                 Delete
+               </button>&nbsp;
+          </form>
+        </div>
+      </div>
+      <br><br><br>
+    </div>
+  </center>
 </div>
 
 {% endblock content %}

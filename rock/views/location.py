@@ -125,10 +125,12 @@ def edit_location(request, location_id):
             return redirect("share:login")
 
         location = get_object_or_404(Location, pk=location_id)
+        form = Sport_Location_Form()
+
         # destinations = Destination.objects.filter(location=location_id)
 
         if location.rocker.user.id == location.rocker.user.id:
-            return render(request, "rock/location/edit_location.html", {"location":location})
+            return render(request, "rock/location/edit_location.html", {"location":location, "form":form})
         else:
             return render(request, "rock/index.html",
             {"error":"You are not the author of the location that you tried to edit."})
@@ -142,20 +144,52 @@ def update_location(request, location_id):
         location = get_object_or_404(Location, pk=location_id)
         # destinations = Destination.objects.filter(location=location_id)
 
-        if not request.POST["country"] or not request.POST["city"]:
-            return render(request, "rock/location/edit_location.html", {"location":location,
-            "error":"One of the required fields was empty"})
-
-        else:
-            country = request.POST["country"]
-            city  = request.POST["city"]
-
+        if 'address' in request.POST and 'zip' in request.POST:
+            try:
+                # Geocoding an address
+                address = request.POST["address"]
+                zip = request.POST["zip"]
+                gmaps = googlemaps.Client(key='AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko')
+                geocode_result = gmaps.geocode(address + " " + zip)
+                df = DataFrame (geocode_result)
+                loc = DataFrame (df['geometry'][0])
+                latitude = float(loc['location'][0])
+                longitude = float(loc['location'][1])
+            except:
+                # If address is blank or not found
+                return render(request, "rock/location/edit_location.html", {"error":"Error finding address"})
             if location.rocker.user.id == user.id:
-                Location.objects.filter(pk=location_id).update(country=country,city=city)
-                return redirect("rock:dashboard")
-
+                Location.objects.filter(pk=location_id).update(address=address, zip=zip, latitude=latitude, longitude=longitude)
+                return redirect("collections:dashboard")
             else:
                 return render(request, "rock/location/edit_location.html",{"location":location, "error":"Can't update!"})
+        elif 'sports' in request.POST:
+            sport = request.POST["sports"]
+            if location.rocker.user.id == user.id:
+                Location.objects.filter(pk=location_id).update(sport=sport)
+
+                if sport == "basketball":
+                    Location.objects.filter(pk=location_id).update(is_basketball=True)
+                    Location.objects.filter(pk=location_id).update(is_tennis=False)
+                    Location.objects.filter(pk=location_id).update(is_baseball=False)
+                elif sport == "tennis":
+                    Location.objects.filter(pk=location_id).update(is_basketball=False)
+                    Location.objects.filter(pk=location_id).update(is_tennis=True)
+                    Location.objects.filter(pk=location_id).update(is_baseball=False)
+                elif sport == "baseball":
+                    Location.objects.filter(pk=location_id).update(is_basketball=False)
+                    Location.objects.filter(pk=location_id).update(is_tennis=False)
+                    Location.objects.filter(pk=location_id).update(is_baseball=True)
+                else:
+                    print("no choice")
+
+                return redirect("collections:dashboard")
+            else:
+                return render(request, "rock/location/edit_location.html",{"location":location, "error":"Can't update!"})
+
+        else:
+            return render(request, "rock/location/edit_location.html", {"location":location,
+            "error":"One of the required fields was empty"})
 
     else:
         # the user enteing    http://127.0.0.1:8000/problem/8/update

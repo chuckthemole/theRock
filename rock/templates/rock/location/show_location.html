@@ -20,7 +20,7 @@
               <span style="color:white;">
                 Location added by:
               </span>
-              <span style="color:blue">
+              <span style="color:#1496ed">
                 {{ location.rocker.user.username }}
               </span>
             </h1>
@@ -34,7 +34,7 @@
                   Baseball field at
                 {% endif %}
               </span>
-              <span style="color:blue">
+              <span style="color:#1496ed">
                 <u> {{location.address}} {{location.zip}}</u>
               </span>
             </h2>
@@ -69,10 +69,19 @@
             <article>
               {% if location.sport_location_img %}
                 <a href="{% url 'location:show_location' location.id %}">
-                  <!--Image of Location-->
-                  <img src="{{ location.sport_location_img.url }}" alt="Image not found"
-                  onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
-                  width="100%" height="100%">
+                  <div class="container-img">
+                    <!--Image of Location-->
+                    <img src="{{ location.sport_location_img.url }}" alt="Image not found"
+                      onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
+                      width="100%" height="100%">
+                      {% if location.sport == 'basketball' %}
+                        <img class="icon" src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">
+                      {% elif location.sport == 'baseball' %}
+                        <img class="icon" src='https://img.icons8.com/dusk/64/000000/baseball.png'>
+                      {% elif location.sport == 'tennis' %}
+                        <img class="icon" src='https://img.icons8.com/dusk/64/000000/tennis.png'>
+                      {% endif %}
+                  </div>
                 </a>
               {% endif %}
             </article><br>
