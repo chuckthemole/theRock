@@ -25,7 +25,7 @@ def index(request):
             else:
                 return render(request, "rock/index.html", {"user":user, "all_locations": all_locations})
         else:
-            return redirect("rock:login")
+            return redirect("collections:login")
     else:
         return HttpResponse(status=500)
 
@@ -67,7 +67,7 @@ def create(request):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-        rocker_yet = request.POST['rocker_yet']
+        #rocker_yet = request.POST['rocker_yet']
 
         if username is not None and email is not None and password is not None: # checking that they are not None
             if not username or not email or not password: # checking that they are not empty
@@ -78,7 +78,7 @@ def create(request):
                 return render(request, "rock/signup.html", {"error": "Email already exists"})
             # save our new user in the User model
             user = User.objects.create_user(username, email, password)
-            rocker = rocker.objects.create(user= user, rocker_yet = rocker_yet).save()
+            rocker_user = rocker.objects.create(user= user).save()
             user.save()
 
             login(request, user, backend="django.contrib.auth.backends.ModelBackend")
