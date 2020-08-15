@@ -31,6 +31,7 @@
     </a>
   </div>
 
+  {% if is_base_visible != False %}
   <div id="navbarData" class="navbar-menu is-active" ><!-- navbar-menu hidden in mobile devices --><!-- is-actice makes id show in mobile devices -->
      <div class="navbar-start">
        <div class="navbar-item">
@@ -51,10 +52,10 @@
             <a> More items later</a>
          </div>
        </div>
-
-
      </div>
+
    </div>
+   {% endif %}
 
    <div class="navbar-end">
      <div class="navbar-item">

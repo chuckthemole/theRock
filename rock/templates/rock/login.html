@@ -2,36 +2,59 @@
 
 {% block content %}
 
+<head>
+    {% load static %}
+    <script type='text/javascript' src="{% static 'rock/js/google_map.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'rock/bulma-0.8.0/css/stylesChuck.css' %}"/>
+</head>
+
 <div class="columns">
   <div class="column">
     <div class="has-text-centered tile is-ancestor">
       <div style="margin: auto" class="tile is-8 is-parent">
         <div class="tile is-child box front-background">
-          <h1 class="title is-2"> Hello
+          <h1 class="title is-2">
+            <span style="color:white;">
+              Hello
+            </span>
             <span style="color:#1496ed">
             {{ user.username }}
             </span>
           </h1>
-          <h2 class="title is-3">Welcome to rocker</h2>
+          <h2 class="title is-3">
+            <span style="color:white;">
+              Welcome to rocker
+            </span>
+          </h2>
         </div>
      </div>
     </div>
   </div>
 </div>
 
+<br><br><br>
+
 <div class="columns is-centered">
   <div class="column is-one-fifth">
     <nav class="panel front-background">
 
       <p class="panel-heading alt-front-background" style="text-align:center">
-        <span><strong>Login</strong></span>
+        <span><strong>
+          <span style="color:white;">
+            Login
+          </span>
+        </strong></span>
       </p>
 
       <div class="panel-block">
         <form action="{% url 'collections:loguser' %}" method="post">
           {% csrf_token %}
           <div class="field">
-              <label class="label">Username</label>
+              <label class="label">
+                <span style="color:white;">
+                  Username
+                </span>
+              </label>
                 <div class="control has-icons-left has-icons-right">
                   <input class="input is-success" type="text" placeholder="Username" name="username">
                   <span class="icon is-small is-left">
@@ -44,7 +67,11 @@
           </div>
 
           <div class="field">
-            <label class="label">Password</label>
+            <label class="label">
+              <span style="color:white;">
+                Password
+              </span>
+            </label>
               <div class="control has-icons-left">
                 <input class="input" name="password" placeholder="Password" type="password">
                 <span class="icon is-small is-left">
@@ -67,4 +94,71 @@
   </div>
 </div>
 
+<br><br><br>
+  <div style="margin: auto;">
+    <center>
+      <div class="box front-background tile is-8 is-vertical">
+        <div class="tile is-ancestor">
+          <div class="tile is-vertical has-text-centered alt-front-backgroud">
+            <h1><br></h1>
+            <h2 class="title is-4" style="color:#1496ed">
+              <span style="color:white;">
+                Take a look at the list of rock destinations created by rocker users
+              </span>
+            </h2>
+            <br>
+          </div>
+        </div>
+        <br><br><br>
+      </div>
+    </center>
+  </div>
+
+<div class="margin: auto">
+  <div class="tile is-ancestor">
+    <div class="tile is-vertical">
+
+      <div class="parent main-background" style='width: 100%; height: 100%;'>
+        <script>
+          //load_map({{location.latitude}}, {{location.longitude}}, {{location.id}});
+          var sports = [];
+          var i = 0;
+        </script>
+          {% for l in all_locations %}
+          <script>
+            sports[i] = '{{l.sport}}';
+            i++;
+          </script>
+          {% endfor %}
+        <script>
+          load_map_multiple_markers({{coordinates}}, sports);
+        </script>
+        <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
+
+        <div class="scrollable child inline-block-child main-background border" style='width: 29%; height: 550px;'>
+          {% for l in all_locations %}
+            <article>
+                <a href="{% url 'location:show_location' l.id %}">
+                  <div class="container-img">
+                    <!--Image of Location-->
+                    <img src="{{ l.sport_location_img.url }}" alt="Image not found"
+                      onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
+                      width="100%" height="100%">
+                    {% if l.sport == 'basketball' %}
+                      <img class="icon" src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">
+                    {% elif l.sport == 'baseball' %}
+                      <img class="icon" src='https://img.icons8.com/dusk/64/000000/baseball.png'>
+                    {% elif l.sport == 'tennis' %}
+                      <img class="icon" src='https://img.icons8.com/dusk/64/000000/tennis.png'>
+                    {% endif %}
+                  </div>
+                </a>
+            </article><br>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 {% endblock content %}

@@ -25,6 +25,7 @@ def index(request):
             else:
                 return render(request, "rock/index.html", {"user":user, "all_locations": all_locations})
         else:
+            #return render(request, "rock/login.html", {"login_dash":login_dash})
             return redirect("collections:login")
     else:
         return HttpResponse(status=500)
@@ -92,7 +93,9 @@ def create(request):
 def signup(request):
     if request.user.is_authenticated:
         return redirect("collections:index")
-    return render(request, 'rock/signup.html')
+    else:
+        is_base_visible = False
+        return render(request, 'rock/signup.html', {'is_base_visible':is_base_visible})
 
 def login_user(request):
     if request.method == "POST":
@@ -112,7 +115,20 @@ def login_user(request):
 def login_view(request):
     if request.user.is_authenticated:
         return redirect("collections:index")
-    return render(request, 'rock/login.html')
+    else:
+        is_base_visible = False
+
+        all_locations = Location.objects.all()   # all_problems is a list object [   ]
+        coordinates = []
+        for location in all_locations:
+            coordinates.append([location.latitude, location.longitude])
+        if len(all_locations) != 0:
+            return render(request, "rock/login.html", {"all_locations": all_locations,
+                "coordinates": coordinates, 'is_base_visible':is_base_visible, "location": all_locations[0]})
+        else:
+            return render(request, "rock/login.html", {"all_locations": all_locations, 'is_base_visible':is_base_visible})
+
+        return render(request, 'rock/login.html', {'is_base_visible':is_base_visible})
 
 def logout_view(request):
     logout(request)

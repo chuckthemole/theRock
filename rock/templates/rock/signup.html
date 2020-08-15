@@ -6,17 +6,25 @@
   <div class="column is-one-fifth">
 
     <nav class="panel">
-      <p class="panel-heading" style="text-align:center">
-      <span><strong>Registration Form</strong></span>
+      <p class="panel-heading alt-front-background" style="text-align:center">
+      <span><strong>
+        <span style="color:white;">
+          Registration Form
+        </span>
+      </strong></span>
       </p>
 
 
-        <div class="panel-block">
+        <div class="panel-block front-background">
             <!-- the action of the form goes to create function in views.py -->
              <form class="control" action="{% url 'collections:create' %}" method="post">
                     {% csrf_token %}
                     <div class="field">
-                        <label class="label">Username</label>
+                        <label class="label">
+                          <span style="color:white;">
+                            Username
+                          </span>
+                        </label>
                        <div class="control has-icons-left has-icons-right">
                             <input class="input" placeholder="Username" type="text" name="username"/>
                            <span class="icon is-small is-left">
@@ -28,7 +36,11 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label">Email</label>
+                        <label class="label">
+                          <span style="color:white;">
+                            Email
+                          </span>
+                        </label>
                        <div class="control has-icons-left has-icons-right">
                             <input class="input" placeholder="Email" type="email" name="email"/>
                            <span class="icon is-small is-left">
@@ -40,7 +52,11 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label">Password</label>
+                        <label class="label">
+                          <span style="color:white;">
+                            Password
+                          </span>
+                        </label>
                         <div class="control has-icons-left">
                             <input class="input" placeholder="Password" type="password" name="password">
                              <span class="icon is-small is-left">
@@ -50,7 +66,9 @@
                     </div>
                     <div class="field">
                         <p class="control">
-                            <button class="button is-success" type="submit" value="Signup">Signup</button>
+                            <button class="button is-success is-outlined" type="submit" value="Signup">
+                              Signup
+                            </button>
                         </p>
                     </div>
                 </form>
