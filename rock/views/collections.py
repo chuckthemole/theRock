@@ -68,15 +68,18 @@ def create(request):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
+        is_base_visible = False
+        all_locations = Location.objects.all()   # all_problems is a list object [   ]
+
         #rocker_yet = request.POST['rocker_yet']
 
         if username is not None and email is not None and password is not None: # checking that they are not None
             if not username or not email or not password: # checking that they are not empty
-                return render(request, "rock/signup.html", {"error": "Please fill in all required fields"})
+                return render(request, "rock/signup.html", {"error": "Please fill in all required fields", "is_base_visible":is_base_visible})
             if User.objects.filter(username=username).exists():
-                return render(request, "rock/signup.html", {"error": "Username already exists"})
+                return render(request, "rock/signup.html", {"error": "Username already exists", "is_base_visible":is_base_visible})
             elif User.objects.filter(email=email).exists():
-                return render(request, "rock/signup.html", {"error": "Email already exists"})
+                return render(request, "rock/signup.html", {"error": "Email already exists", "is_base_visible":is_base_visible})
             # save our new user in the User model
             user = User.objects.create_user(username, email, password)
             rocker_user = rocker.objects.create(user= user).save()
@@ -101,6 +104,8 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
+        all_locations = Location.objects.all()   # all_problems is a list object [   ]
+        is_base_visible = False
         if not username or not password:
             return render(request, "rock/login.html", {"error":"One of the fields was empty"})
         user = authenticate(request, username=username, password=password)
@@ -108,7 +113,7 @@ def login_user(request):
             login(request, user)
             return redirect("collections:index")
         else:
-            return render(request, "rock/login.html", {"error":"Wrong username or password"})
+            return render(request, "rock/login.html", {"error":"Wrong username or password", "all_locations":all_locations, "is_base_visible":is_base_visible})
     else:
         return redirect("collections:index")
 

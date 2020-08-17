@@ -20,6 +20,9 @@
              <form class="control" action="{% url 'collections:create' %}" method="post">
                     {% csrf_token %}
                     <div class="field">
+                      <span style="color:red;">
+                        {{error}}
+                      </span>
                         <label class="label">
                           <span style="color:white;">
                             Username

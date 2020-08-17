@@ -49,6 +49,11 @@
       <div class="panel-block">
         <form action="{% url 'collections:loguser' %}" method="post">
           {% csrf_token %}
+          <div>
+            <span style="color:red;">
+              {{error}}
+            </span>
+          </div>
           <div class="field">
               <label class="label">
                 <span style="color:white;">
@@ -94,6 +99,7 @@
   </div>
 </div>
 
+<!-- Show locations and map of locations -->
 <br><br><br>
   <div style="margin: auto;">
     <center>
