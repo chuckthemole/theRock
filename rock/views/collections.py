@@ -107,7 +107,7 @@ def login_user(request):
         all_locations = Location.objects.all()   # all_problems is a list object [   ]
         is_base_visible = False
         if not username or not password:
-            return render(request, "rock/login.html", {"error":"One of the fields was empty"})
+            return render(request, "rock/login.html", {"error":"One of the fields was empty", "is_base_visible":is_base_visible, "all_locations":all_locations})
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
