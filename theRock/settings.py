@@ -18,8 +18,15 @@ from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# AWS storage
+AWS_ACCESS_KEY_ID = 'AKIAJNFQVZ4J3SRTYB5Q'
+AWS_SECRET_ACCESS_KEY = '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'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = 'findtherock'
+AWS_S3_REGION_NAME = 'us-west-1'
+
+# MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/

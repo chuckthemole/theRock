@@ -1,4 +1,8 @@
 from .imports import *
+from django.core.files.storage import default_storage as storage
+import os
+from io import BytesIO as StringIO # python3
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Locations
 def publish_location(request):
