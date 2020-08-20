@@ -24,6 +24,14 @@ AWS_SECRET_ACCESS_KEY = '1/A42VmKed4lB2G8uAJZM0T3kddtpqugoUz4fdWG'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_STORAGE_BUCKET_NAME = 'findtherock'
 AWS_S3_REGION_NAME = 'us-west-1'
+AWS_S3_ENDPOINT_URL = 'https://s3.amazonaws.com'
+
+S3DIRECT_DESTINATIONS = {
+    'primary_destination': {
+        'key': 'uploads/',
+        'allowed': ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4'],
+    },
+}
 
 # MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'

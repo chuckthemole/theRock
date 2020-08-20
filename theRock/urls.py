@@ -29,6 +29,9 @@ urlpatterns = [
     path('', include('rock.urls.map', namespace='map')),
     path('', include('rock.urls.review', namespace='review')),
     path('', include('rock.urls.sport', namespace='sport')),
+
+    path('s3direct/', include('s3direct.urls')),
+
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
 ]
 
