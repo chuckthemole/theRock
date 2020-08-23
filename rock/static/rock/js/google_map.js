@@ -105,11 +105,6 @@ function load_map_tennis(latitude, longitude) {
 }
 
 function load_map_multiple_markers(coordinates, sports) {
-  // Create the script tag, set the appropriate attributes
-  var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
-  script.defer = true;
-
   window.initMap = function() {
     var uluru = {lat: coordinates[0][0], lng: coordinates[0][1]};
     var map = new google.maps.Map(document.getElementById("map"), {zoom: 17, center: uluru});
@@ -155,5 +150,10 @@ function load_map_multiple_markers(coordinates, sports) {
       //})(marker[i], i));
     }
   }
+
+  // Create the script tag, set the appropriate attributes
+  var script = document.createElement('script');
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
+  script.defer = true;
   document.head.appendChild(script);
 }

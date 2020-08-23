@@ -55,20 +55,20 @@
             </span>
           </div>
           <div class="field">
-              <label class="label">
-                <span style="color:white;">
-                  Username
-                </span>
-              </label>
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input is-success" type="text" placeholder="Username" name="username">
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                  </span>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                  </span>
-                </div>
+            <label class="label">
+              <span style="color:white;">
+                Username
+              </span>
+            </label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-success" type="text" placeholder="Username" name="username">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
           </div>
 
           <div class="field">
@@ -120,6 +120,8 @@
     </center>
   </div>
 
+<br><br>
+
 <div class="margin: auto">
   <div class="tile is-ancestor">
     <div class="tile is-vertical">
@@ -139,7 +141,7 @@
         <script>
           load_map_multiple_markers({{coordinates}}, sports);
         </script>
-        <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
+        <div class='child inline-block-child' id='map' style='width: 70%; height: 100%;'></div>
 
         <div class="scrollable child inline-block-child main-background border" style='width: 29%; height: 550px;'>
           {% for l in all_locations %}
