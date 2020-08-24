@@ -107,7 +107,11 @@ def create_image(request, location_id):
             except:
                 return render(request, "rock/location/show_map.html", {"error":"Error"})
             if form.is_valid():
-                form.save()
+                #form.save()
+                upload = Upload(file=location.sport_location_img)
+                upload.save()
+                #location.upload = upload
+                #location.save()
                 return render(request, "rock/location/show_location.html", {"user":user, "location":location} )
             else:
                 form = Sport_Location_Form()

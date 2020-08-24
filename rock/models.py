@@ -33,6 +33,10 @@ class Sport(models.Model):
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)
 
+class Upload(models.Model):
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField()
+
 class Location(models.Model):
 	def __str__(self):
 		return (self.address + " " + self.zip)
@@ -42,6 +46,7 @@ class Location(models.Model):
 
 	# FK
 	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
+	#upload =models.ForeignKey(Upload, on_delete=models.CASCADE, null=True)
 
 	# Sport type
 	sport = models.TextField(max_length=30, null=False, blank=False, unique=False, default="")
