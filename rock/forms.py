@@ -1,4 +1,5 @@
 from django import forms
+from django.core.files.storage import default_storage as storage
 from .models import *
 
 class Sport_Location_Form(forms.ModelForm):
@@ -10,7 +11,12 @@ class Sport_Location_Form(forms.ModelForm):
             row_ender = '</p>',
             help_text_html = u' <span class="helptext">%s</span>',
             errors_on_separate_row = True)
+
     class Meta:
         model = Location
         fields = ["sport_location_img"]
         #exclude = ('rocker', 'location')
+
+    def save(self):
+        location = super(Sport_Location_Form, self).save()
+        return location

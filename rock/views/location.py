@@ -1,4 +1,6 @@
 from .imports import *
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 # Locations
 def publish_location(request):
@@ -108,6 +110,10 @@ def create_image(request, location_id):
                 return render(request, "rock/location/show_map.html", {"error":"Error"})
             if form.is_valid():
                 form.save()
+
+                #if settings.USE_S3:
+                upload = Upload(file=location.sport_location_img)
+                upload.save()
                 return render(request, "rock/location/show_location.html", {"user":user, "location":location} )
             else:
                 form = Sport_Location_Form()
