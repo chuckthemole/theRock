@@ -6,10 +6,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-'''
-googlemaps
-AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko
-'''
+
 import os
 import dj_database_url
 import django_heroku
@@ -40,10 +37,15 @@ if USE_S3:
     PRIVATE_MEDIA_LOCATION = 'private'
     #PRIVATE_FILE_STORAGE = "theRock.storage_backends.PrivateMediaStorage"
 else:
-    STATIC_URL = '/staticfiles/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'rock/static'),
+        )
+    MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
