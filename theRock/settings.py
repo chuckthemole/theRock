@@ -6,10 +6,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-'''
-googlemaps
-AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko
-'''
+
 import os
 import dj_database_url
 import django_heroku
@@ -31,19 +28,23 @@ if USE_S3:
     # s3 static settings
     STATIC_LOCATION = 'static'
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    STATICFILES_STORAGE = "theRock.storage_backends.StaticStorage"
+    #STATICFILES_STORAGE = "theRock.storage_backends.StaticStorage"
     # s3 public media settings
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = "theRock.storage_backends.PublicMediaStorage"
+    #DEFAULT_FILE_STORAGE = "theRock.storage_backends.PublicMediaStorage"
     # s3 private media settings
     PRIVATE_MEDIA_LOCATION = 'private'
-    PRIVATE_FILE_STORAGE = "theRock.storage_backends.PrivateMediaStorage"
+    #PRIVATE_FILE_STORAGE = "theRock.storage_backends.PrivateMediaStorage"
 else:
-    STATIC_URL = '/staticfiles/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'rock/static'),
+        )
+    MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
