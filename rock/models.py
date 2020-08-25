@@ -33,6 +33,10 @@ class Sport(models.Model):
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)
 
+class Upload(models.Model):
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField()
+
 class Location(models.Model):
 	def __str__(self):
 		return (self.address + " " + self.zip)
