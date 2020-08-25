@@ -46,7 +46,7 @@ class Location(models.Model):
 
 	# FK
 	rocker = models.ForeignKey(rocker, on_delete=models.CASCADE, null=True)
-	#upload =models.ForeignKey(Upload, on_delete=models.CASCADE, null=True)
+	location_upload =models.ForeignKey(Upload, on_delete=models.CASCADE, null=True)
 
 	# Sport type
 	sport = models.TextField(max_length=30, null=False, blank=False, unique=False, default="")
