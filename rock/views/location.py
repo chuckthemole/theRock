@@ -110,6 +110,7 @@ def create_image(request, location_id):
                 #form.save()
                 upload = Upload(file=location.sport_location_img)
                 upload.save()
+                image_url = upload.file.url
                 #location.upload = upload
                 #location.save()
                 return render(request, "rock/location/show_location.html", {"user":user, "location":location} )
