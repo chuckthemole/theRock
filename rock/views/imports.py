@@ -9,3 +9,4 @@ import googlemaps
 from datetime import datetime
 from django.contrib.auth.models import User # import User model
 from rock.static.rock.images import * # Import all images
+from django.conf import settings

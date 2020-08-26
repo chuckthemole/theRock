@@ -93,7 +93,7 @@ def publish_image(request, location_id):
         else:
             location = get_object_or_404(Location, pk=location_id)
             form = Sport_Location_Form()
-            return render(request, "rock/location/show_map.html", {"user":user, "location":location, "form":form} )
+            return render(request, "rock/location/show_map.html", {"user":user, "location":location, "form":form, 'api_key': settings.GOOGLE_MAPS_API_KEY} )
 
 def create_image(request, location_id):
     if request.method == "POST":

@@ -1,10 +1,14 @@
-from decouple import config
 
-function load_map_basketball(latitude, longitude) {
+function load_map_basketball(latitude, longitude, key) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=" + config('GOOGLE_MAPS_API_KEY') + "&callback=initMap";
-  script.defer = true;
+  var str1 = "https://maps.googleapis.com/maps/api/js?key=";
+  var str2 = key;
+  var str3 = "&callback=initMap";
+  var str = str1.concat(str2);
+  str = str.concat(str3);
+  script.src = str;
+  script.defer = true;settings.GOOGLE_MAPS_API_KEY
 
   // Attach your callback function to the `window` object
   window.initMap = function() {
@@ -35,10 +39,15 @@ function load_map_basketball(latitude, longitude) {
   document.head.appendChild(script);
 }
 
-function load_map_baseball(latitude, longitude) {
+function load_map_baseball(latitude, longitude, key) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=" + config('GOOGLE_MAPS_API_KEY') + "&callback=initMap";
+  var str1 = "https://maps.googleapis.com/maps/api/js?key=";
+  var str2 = key;
+  var str3 = "&callback=initMap";
+  var str = str1.concat(str2);
+  str = str.concat(str3);
+  script.src = str;
   script.defer = true;
 
   // Attach your callback function to the `window` object
@@ -70,10 +79,15 @@ function load_map_baseball(latitude, longitude) {
   document.head.appendChild(script);
 }
 
-function load_map_tennis(latitude, longitude) {
+function load_map_tennis(latitude, longitude, key) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=" + config('GOOGLE_MAPS_API_KEY') + "&callback=initMap";
+  var str1 = "https://maps.googleapis.com/maps/api/js?key=";
+  var str2 = key;
+  var str3 = "&callback=initMap";
+  var str = str1.concat(str2);
+  str = str.concat(str3);
+  script.src = str;
   script.defer = true;
 
   // Attach your callback function to the `window` object
@@ -108,7 +122,7 @@ function load_map_tennis(latitude, longitude) {
 function load_map_multiple_markers(coordinates, sports) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=" + config('GOOGLE_MAPS_API_KEY') + "&callback=initMap";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=" + settings.GOOGLE_MAPS_API_KEY + "&callback=initMap";
   script.defer = true;
 
   window.initMap = function() {
