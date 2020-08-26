@@ -108,9 +108,9 @@ def create_image(request, location_id):
                 return render(request, "rock/location/show_map.html", {"error":"Error"})
             if form.is_valid():
                 #form.save()
-                upload = Upload(file=location.sport_location_img)
-                upload.save()
-                location.img_url = str(upload.file.url)
+                #upload = Upload(file=location.sport_location_img)
+                #upload.save()
+                #location.img_url = str(upload.file.url)
                 location.save()
                 return render(request, "rock/location/show_location.html", {"user":user, "location":location} )
             else:
@@ -222,7 +222,8 @@ def delete_location(request, location_id):
         # destinations = Destination.objects.filter(location=location_id)
 
         if location.rocker.user.id == user.id:
-            Location.objects.get(pk=location_id).delete()
+            location.sport_location_img.delete(save=False)  # Deletes the file from AWS S3
+            Location.objects.get(pk=location_id).delete()   # Deletes Location instance
             return redirect("collections:dashboard")
         else:
             all_locations = Location.objects.all()
