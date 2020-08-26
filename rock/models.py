@@ -33,6 +33,10 @@ class Sport(models.Model):
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)
 
+class Upload(models.Model):
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField()
+
 class Location(models.Model):
 	def __str__(self):
 		return (self.address + " " + self.zip)
@@ -57,6 +61,7 @@ class Location(models.Model):
 
 	# Image of location
 	sport_location_img = models.ImageField(upload_to='images/', blank=True, default="static/rock/images/no_image_available.PNG")
+	img_url = models.TextField(max_length=100, null=False, blank=True, unique=False, default="")
 
 	created = models.DateField(auto_now=True)
 	updated = models.DateField(auto_now=True)     # everytime the obj is saved, new time is saved
