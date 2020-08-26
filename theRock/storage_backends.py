@@ -5,12 +5,21 @@ class StaticStorage(S3Boto3Storage):
     location = 'static'
     default_acl = 'public-read'
 
+    def path(self, name):
+        return ""
+
 class PublicMediaStorage(S3Boto3Storage):
     location = 'media'
     default_acl = 'public-read'
     file_overwrite = False
 
+    def path(self, name):
+        return ""
+
 class PrivateMediaStorage(S3Boto3Storage):
     location = 'private'
     default_acl = 'public-read'
     file_overwrite = False
+
+    def path(self, name):
+        return ""
