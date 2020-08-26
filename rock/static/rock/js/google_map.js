@@ -1,8 +1,9 @@
+from decouple import config
 
 function load_map_basketball(latitude, longitude) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=" + config('GOOGLE_MAPS_API_KEY') + "&callback=initMap";
   script.defer = true;
 
   // Attach your callback function to the `window` object
@@ -37,7 +38,7 @@ function load_map_basketball(latitude, longitude) {
 function load_map_baseball(latitude, longitude) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=" + config('GOOGLE_MAPS_API_KEY') + "&callback=initMap";
   script.defer = true;
 
   // Attach your callback function to the `window` object
@@ -72,7 +73,7 @@ function load_map_baseball(latitude, longitude) {
 function load_map_tennis(latitude, longitude) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=" + config('GOOGLE_MAPS_API_KEY') + "&callback=initMap";
   script.defer = true;
 
   // Attach your callback function to the `window` object
@@ -107,7 +108,7 @@ function load_map_tennis(latitude, longitude) {
 function load_map_multiple_markers(coordinates, sports) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=" + config('GOOGLE_MAPS_API_KEY') + "&callback=initMap";
   script.defer = true;
 
   window.initMap = function() {
