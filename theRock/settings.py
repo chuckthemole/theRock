@@ -36,7 +36,7 @@ DEFAULT_FILE_STORAGE = "theRock.storage_backends.PublicMediaStorage"
 # s3 private media settings
 PRIVATE_MEDIA_LOCATION = 'private'
 PRIVATE_FILE_STORAGE = "theRock.storage_backends.PrivateMediaStorage"
-    '''
+'''
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -46,7 +46,7 @@ else:
         )
     MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
-    '''
+'''
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
