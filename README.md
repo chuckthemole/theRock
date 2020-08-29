@@ -10,9 +10,9 @@ basketball, tennis, and baseball locations. Users can communicate with others
 and comment on the various locations.
 
 ### Features
-l. Add location of tennis court, basketball court, or baseball field.
-l. Create address and view with Google Maps API.
-l. Upload images that are stored to AWS S3 bucket.
-l. Comment on other user's locations.
+* Add location of tennis court, basketball court, or baseball field.
+* Create address and view with Google Maps API.
+* Upload images that are stored to AWS S3 bucket.
+* Comment on other user's locations.
 
 ### Thanks for checking rocker out!
