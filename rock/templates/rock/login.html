@@ -144,21 +144,19 @@
         <div class="scrollable child inline-block-child main-background border" style='width: 29%; height: 550px;'>
           {% for l in all_locations %}
             <article>
-                <a href="{% url 'location:show_location' l.id %}">
-                  <div class="container-img">
-                    <!--Image of Location-->
-                    <img src="{{ l.sport_location_img.url }}" alt="Image not found"
-                      onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
-                      width="100%" height="100%">
-                    {% if l.sport == 'basketball' %}
-                      <img class="icon" src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">
-                    {% elif l.sport == 'baseball' %}
-                      <img class="icon" src='https://img.icons8.com/dusk/64/000000/baseball.png'>
-                    {% elif l.sport == 'tennis' %}
-                      <img class="icon" src='https://img.icons8.com/dusk/64/000000/tennis.png'>
-                    {% endif %}
-                  </div>
-                </a>
+              <div class="container-img">
+                <!--Image of Location-->
+                <img src="{{ l.sport_location_img.url }}" alt="Image not found"
+                  onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
+                  width="100%" height="100%" style="padding:0; margin:0;" class="box main-background">
+                {% if l.sport == 'basketball' %}
+                  <img class="icon" src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">
+                {% elif l.sport == 'baseball' %}
+                  <img class="icon" src='https://img.icons8.com/dusk/64/000000/baseball.png'>
+                {% elif l.sport == 'tennis' %}
+                  <img class="icon" src='https://img.icons8.com/dusk/64/000000/tennis.png'>
+                {% endif %}
+              </div>
             </article><br>
           {% endfor %}
         </div>
