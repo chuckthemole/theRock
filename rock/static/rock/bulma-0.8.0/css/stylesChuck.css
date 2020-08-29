@@ -104,7 +104,7 @@ html, body, {
 
  .container-img { position: relative; }
  .container-img img { display: block; }
- .container-img .icon { position: absolute; bottom:0; left:0; }
+ .container-img .icon { position: absolute; top:0; left:0; }
 
 /* Make columns same height*/
  .col-container {

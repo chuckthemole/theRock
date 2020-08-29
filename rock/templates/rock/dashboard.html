@@ -44,7 +44,7 @@
                 <div class="container-img">
                   <img src="{{ location.sport_location_img.url }}" alt="Image not found"
                     onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
-                    width="100%" height="100%">
+                    width="100%" height="100%" style="padding:0; margin:0;" class="box">
 
                   {% if location.sport == 'basketball' %}
                     <img class="icon" src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">

@@ -2,8 +2,8 @@
 function load_map_basketball(latitude, longitude) {
   // Create the script tag, set the appropriate attributes
   var script = document.createElement('script');
-  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
   script.defer = true;
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko&callback=initMap";
 
   // Attach your callback function to the `window` object
   window.initMap = function() {
