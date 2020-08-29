@@ -8,3 +8,11 @@
 Rocker is an app created for sports lovers. Users are able to add, delete, and share
 basketball, tennis, and baseball locations. Users can communicate with others
 and comment on the various locations.
+
+### Features
+l. Add location of tennis court, basketball court, or baseball field.
+l. Create address and view with Google Maps API.
+l. Upload images that are stored to AWS S3 bucket.
+l. Comment on other user's locations.
+
+### Thanks for checking rocker out!
