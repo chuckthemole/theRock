@@ -1,5 +1,5 @@
 # Rocker
-# # Written by Charles Thomas
+## Written by Charles Thomas
 
 ![No image available!](https://img.icons8.com/doodle/48/000000/basketball--v1.png "This is a sample image.")
 
