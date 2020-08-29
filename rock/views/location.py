@@ -37,20 +37,23 @@ def create_location(request):
         if not sport:
             return render(request, "rock/location/create_location.html", {"error":"Please choose a sport!"})
 
-        try:
-            # Geocoding an address
-            address = request.POST["address"]
-            zip = request.POST["zip"]
-            gmaps = googlemaps.Client(key='AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko')
-            geocode_result = gmaps.geocode(address + " " + zip)
-            df = DataFrame (geocode_result)
-            loc = DataFrame (df['geometry'][0])
+        # Geocoding an address
+        address = request.POST["address"]
+        zip = request.POST["zip"]
+        gmaps = googlemaps.Client(key='AIzaSyBLjXOk51pE-rRddkuHJeHIFVf_90rCYko')
+        geocode_result = gmaps.geocode(address + " " + zip)
+        df = DataFrame (geocode_result)
+        loc = DataFrame (df['geometry'][0])
+
+        # Sometimes the DF is missing values. Try first two if they exist
+        if str(loc['location'][0]) != 'nan' and str(loc['location'][1]) != 'nan':
             latitude = float(loc['location'][0])
             longitude = float(loc['location'][1])
-        except:
-            # If address is blank or not found
-            return render(request, "rock/location/create_location.html", {"error":"Error finding address"})
+        else:
+            latitude = float(loc['location'][2])
+            longitude = float(loc['location'][3])
 
+        print("( LATITUDE: " + str(latitude) + ", LONGITUDE: " + str(longitude) + " )")
         # Make more requirements for adress inputs
         if address == "" or len(zip) < 5:
             return render(request, "rock/location/create_location.html", {"error":"Enter a proper address"})

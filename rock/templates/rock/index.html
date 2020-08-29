@@ -53,16 +53,19 @@
             var sports = [];
             var i = 0;
           </script>
-            {% for l in all_locations %}
-            <script>
-              sports[i] = '{{l.sport}}';
-              i++;
-            </script>
-            {% endfor %}
+
+          {% for l in all_locations %}
+          <script>
+            sports[i] = '{{l.sport}}';
+            i++;
+          </script>
+          {% endfor %}
+
+          <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
+
           <script>
             load_map_multiple_markers({{coordinates}}, sports);
           </script>
-          <div class='child inline-block-child' id='map' style='width: 70%; height: 550px;'></div>
 
           <div class="scrollable child inline-block-child main-background border" style='width: 29%; height: 550px;'>
             {% for l in all_locations %}
@@ -72,7 +75,7 @@
                       <!--Image of Location-->
                       <img src="{{ l.sport_location_img.url }}" alt="Image not found"
                         onerror="this.onerror=null;this.src='{% static 'rock/images/no_image_available.PNG' %}';"
-                        width="100%" height="100%" style="padding:0; margin:0;" class="box tile">
+                        width="100%" height="100%" style="padding:0; margin:0;" class="box main-background">
                       {% if l.sport == 'basketball' %}
                         <img class="icon" src="https://img.icons8.com/doodle/48/000000/basketball--v1.png">
                       {% elif l.sport == 'baseball' %}
