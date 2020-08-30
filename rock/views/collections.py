@@ -82,13 +82,13 @@ def create(request):
                 return render(request, "rock/signup.html", {"error": "Email already exists", "is_base_visible":is_base_visible})
             # save our new user in the User model
             user = User.objects.create_user(username, email, password)
-            rocker_user = rocker.objects.create(user= user).save()
+            rocker_user = rocker.objects.create(user=user).save()
             user.save()
 
             login(request, user, backend="django.contrib.auth.backends.ModelBackend")
             # this logs in our new user, backend means that we are using the  Django specific auhentication and not 3rd party
 
-        return redirect("collections:index")
+        return redirect("collections:publish_profile_pic", user.id)
 
     else:
         return redirect("collections:signup")
@@ -125,8 +125,13 @@ def login_view(request):
 
         all_locations = Location.objects.all()   # all_problems is a list object [   ]
         coordinates = []
-        for location in all_locations:
-            coordinates.append([location.latitude, location.longitude])
+
+        try:
+            for location in all_locations:
+                coordinates.append([location.latitude, location.longitude])
+        except:
+            return render(request, 'rock/login.html', {'is_base_visible':is_base_visible})
+
         if len(all_locations) != 0:
             return render(request, "rock/login.html", {"all_locations": all_locations,
                 "coordinates": coordinates, 'is_base_visible':is_base_visible, "location": all_locations[0]})
@@ -138,3 +143,16 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("collections:login")
+
+def publish_profile_pic(request, rocker_id):
+    if request.method == "GET":
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("rock:login")
+        else:
+            rocker = get_object_or_404(Location, pk=rocker_id)
+            form = Profile_Picture_Form()
+            return render(request, "rock/show_rocker.html", {"user":user, "rocker":rocker, "form":form} )
+
+def create_profile_pic(request, rocker_id):
+    pass

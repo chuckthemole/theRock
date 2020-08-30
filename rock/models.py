@@ -15,8 +15,9 @@ class rocker(models.Model):
 	#rocker_yet = models.BooleanField(default=False)  # the user is not a coder yet
 	#local = models.BooleanField(default=False)
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	created = models.DateField(auto_now=True)   # maybe redundant, user model has date_joined :)
+	#created = models.DateField(auto_now=True)   # maybe redundant, user model has date_joined :)
 	updated = models.DateField(auto_now=True)
+	user_picture = models.ImageField(upload_to='images/users/', blank=True, null=True, default="static/rock/images/no_image_available.PNG")
 
 class Sport(models.Model):
 	def __str__(self):
